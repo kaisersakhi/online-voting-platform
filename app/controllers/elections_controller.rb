@@ -1,7 +1,8 @@
 class ElectionsController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
   def index # display a list of elections
-    render plain: Election.all.map { |election| election.to_s}.join("\n")
+    render plain: Election.all.map { |election| election.to_s }.join("\n")
   end
 
   def new # return an HTML form for creating new election
@@ -23,6 +24,28 @@ class ElectionsController < ApplicationController
     new_election.save
   end
 
+  def add_question
+    question_name = params[:question_name]
+    question_description = params[:question_description]
+    options = params[:options].to_s.split(",")
+
+    election = Election.find(params[:election_id])
+
+    new_question = election.questions.new(
+      question_name: question_name,
+      question_description: question_description
+    )
+    new_question.save
+
+    options.each do |option|
+      new_question.options.create!(
+        name: option.strip,
+        total_vote_count: 0
+      )
+
+    end
+  end
+
   def get_by_custom_url
     render plain: params[:id]
   end
@@ -30,7 +53,6 @@ class ElectionsController < ApplicationController
   def show # display a specific election
 
   end
-
 
   def edit # returns an HTML form for editing an elections
 

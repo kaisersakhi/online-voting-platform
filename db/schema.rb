@@ -34,15 +34,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_095911) do
   create_table "options", force: :cascade do |t|
     t.string "name"
     t.bigint "total_vote_count"
+    t.bigint "question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_options_on_question_id"
   end
 
   create_table "questions", force: :cascade do |t|
     t.string "question_name"
     t.string "question_description"
+    t.bigint "election_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["election_id"], name: "index_questions_on_election_id"
   end
 
   create_table "voter_participations", primary_key: ["voter_id", "election_id"], force: :cascade do |t|
@@ -63,4 +67,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_095911) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "options", "questions"
+  add_foreign_key "questions", "elections"
 end

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get '/elections/e/:id', to: "elections#get_by_custom_url"
 
   resources :elections
+  # This route will be used to post new questions in an election
+  post '/election/question', to: "elections#add_question" # notice 's'
 
   resources :voters
 
