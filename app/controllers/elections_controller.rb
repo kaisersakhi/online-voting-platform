@@ -24,26 +24,17 @@ class ElectionsController < ApplicationController
     new_election.save
   end
 
-  def add_question
-    question_name = params[:question_name]
-    question_description = params[:question_description]
-    options = params[:options].to_s.split(",")
 
-    election = Election.find(params[:election_id])
 
-    new_question = election.questions.new(
-      question_name: question_name,
-      question_description: question_description
-    )
-    new_question.save
+  def show_draft_elections
+    render 'draft_elections', locals: {
+      draft_elections: Election.draft_elections
+    }
+  end
 
-    options.each do |option|
-      new_question.options.create!(
-        name: option.strip,
-        total_vote_count: 0
-      )
-
-    end
+  def edit_draft
+    election_id = params[:id]
+    render 'edit_draft', locals: {election: Election.find(election_id)}
   end
 
   def get_by_custom_url

@@ -1,0 +1,11 @@
+<div class="main-body">
+  <ul>
+    <% draft_elections.each do |election| %>
+      <li><a href="/elections/drafts/edit/<%= election.id %>"><%= election.name %></a></li>
+    <% end %>
+  </ul>
+
+  
+
+  
+</div>
