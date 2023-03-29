@@ -26,9 +26,11 @@ Rails.application.routes.draw do
 
 
   resources :voters
-
-  post '/login', action: :create, controller: 'sessions'
+  get '/vote/:e_id', to: 'questions#show'
+  patch '/vote/:e_id', to: 'questions#update_option'
 
   get '/admin/dashboard', to: 'admins#dashboard'
+
+
 
 end

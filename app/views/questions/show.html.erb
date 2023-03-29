@@ -1,0 +1,44 @@
+<div class="main-body">
+
+  <div class="election-heading">
+    <h3><%= election.name %></h3>
+  </div>
+
+    <div class="saved-questions">
+      <div class="question-with-options">
+        <h3><%= question.question_name %></h3>
+        <p><%= question.question_description %></p>
+
+        <% question.options.each do |option| %>
+          <ul class="question-option-list">
+            <li>
+              <div class="form-check">
+                <%= form_with(url: "/vote/#{election.id}", method: "patch") do %>
+                  <input type="number" name="opt_id" value="<%= option.id %>" hidden>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault1"
+                  onclick="this.form.submit()"
+                >
+                <label class="form-check-label" for="flexRadioDefault1">
+                  <%= option.name %>
+                </label>
+                <% end %>
+              </div>
+
+            </li>
+          </ul>
+        <% end %>
+      </div>
+
+    </div>
+
+
+
+
+
+</div>
+
+

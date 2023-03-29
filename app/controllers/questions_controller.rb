@@ -1,5 +1,35 @@
 class QuestionsController < ApplicationController
 
+  def show # method to render HTML form for voting in an election
+    puts "Index is having -> #{session[:question_index]}"
+    election = Election.find(params[:e_id])
+    questions = election.questions
+    if session[:question_index].nil?
+      session[:question_index] = 0
+    end
+
+    if session[:question_index] == questions.length
+      # redirect voter to dashboard
+      # and add entry into voter_participation's table
+      redirect_to '/'
+      session[:question_index] = 0
+    else
+      render 'show', locals: {
+        election: election,
+        question: questions[session[:question_index]]
+      }
+
+      session[:question_index] = session[:question_index] + 1
+    end
+  end
+
+  def update_option # method to update vote count
+    option = Option.find(params[:opt_id])
+    option.total_vote_count += 1
+    option.save
+
+    redirect_to "/vote/#{params[:e_id]}"
+  end
   def add_question
     question_name = params[:question_name]
     question_description = params[:question_description]

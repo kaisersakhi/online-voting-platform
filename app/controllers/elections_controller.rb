@@ -57,12 +57,21 @@ class ElectionsController < ApplicationController
     render 'active', locals: {elections: Election.active_elections}
   end
 
+  def archived
+    render 'archived', locals: {elections: Election.archived}
+  end
+
   def get_by_custom_url
     render plain: params[:id]
   end
 
   def show # display a specific election
-    render plain: "elections#show"
+    election = Election.find(params[:id])
+
+    render 'show', locals: {
+      election: election,
+      total_votes: election.voter_participations.size
+    }
   end
 
   def edit # returns an HTML form for editing an elections
