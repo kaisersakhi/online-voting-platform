@@ -44,8 +44,8 @@
       </div>
 
       <div class="question-controls">
-        <form action="/election/<%= election.id %>/question/<%= question.id %>" method="post">
-          <input type="button" class="btn btn-secondary" value="Update">
+        <form action="/election/<%= election.id %>/question/<%= question.id %>/edit" method="get">
+          <input type="button" class="btn btn-secondary" value="Update" onclick="this.form.submit()">
         </form>
 
         <%= form_with(url: "/election/#{election.id}/question/#{question.id}", method: "DELETE") do %>

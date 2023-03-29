@@ -1,0 +1,50 @@
+<div class="main-body">
+
+
+
+<%= form_with(url: "/election/#{election_id}/question/#{question.id}", method: "PATCH")  do %>
+
+  <input type="number" name="question_id" value="<%= question.id %>" hidden>
+  <div class="form-group">
+    <label for="questionName">Question Name</label>
+    <input
+      name="question_name"
+      type="text"
+      class="form-control"
+      id="questionName"
+      placeholder="Question?"
+      value="<%= question.question_name %>"
+      required
+    >
+  </div>
+  <div class="form-group">
+    <label for="questionDescription">Description</label>
+    <input
+      name="question_description"
+      class="form-control"
+      id="questionDescription"
+      placeholder="Description"
+      value="<%= question.question_description %>"
+      required
+    >
+  </div>
+
+  <div class="form-group">
+    <label for="option">Options:</label>
+    <input
+      type="text"
+      id="option"
+      name="options"
+      class="form-control"
+      placeholder="option 1, option 2, ..., option n"
+      value="<%= question.options.map {|opt| opt.name}.join(", ") %>"
+      required
+    >
+    <div id="emailHelp" class="form-text">Separate each option with a comma. Please maintain order.</div>
+
+  </div>
+  <button style="margin-top: 20px; width: 100%;" type="submit" class="btn btn-secondary">Update</button>
+
+<% end %>
+
+</div>

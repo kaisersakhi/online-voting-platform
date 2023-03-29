@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   # get 'election/:e_id/question', to: "questions#all_questions"
   post '/election/:id/question', to: "questions#add_question" # notice 's'
   delete '/election/:e_id/question/:q_id', to: 'questions#destroy'
+  patch 'election/:e_id/question/:q_id', to: 'questions#update'
 
 
   resources :voters
