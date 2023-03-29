@@ -3,7 +3,5 @@ class PagesController < ApplicationController
 
   end
 
-  def admin_dashboard
 
-  end
 end

@@ -37,12 +37,32 @@ class ElectionsController < ApplicationController
     render 'edit_draft', locals: {election: Election.find(election_id)}
   end
 
+  def launch
+    election = Election.find(params[:id])
+    election.status = "active"
+    election.save
+
+    redirect_to '/admin/dashboard'
+  end
+
+  def end
+    election = Election.find(params[:id])
+    election.status = "archived"
+    election.save
+
+    redirect_to '/admin/dashboard'
+  end
+
+  def active_elections
+    render 'active', locals: {elections: Election.active_elections}
+  end
+
   def get_by_custom_url
     render plain: params[:id]
   end
 
   def show # display a specific election
-
+    render plain: "elections#show"
   end
 
   def edit # returns an HTML form for editing an elections

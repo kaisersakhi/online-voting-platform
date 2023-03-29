@@ -2,7 +2,9 @@
 
   <div class="election-heading">
     <h3><%= election.name %></h3>
-    <button class="btn btn-outline-success">Launch</button>
+    <%= form_with(url: "/elections/#{election.id}/launch", method: "PATCH") do %>
+      <button class="btn btn-outline-success" onclick="this.form.submit()">Launch</button>
+    <% end %>
   </div>
 
   <form action="/election/<%= election.id %>/question" method="post">
@@ -49,7 +51,7 @@
         </form>
 
         <%= form_with(url: "/election/#{election.id}/question/#{question.id}", method: "DELETE") do %>
-            <input type="button" class="btn btn-danger" value="Delete " onclick="this.form.submit()">
+          <input type="button" class="btn btn-danger" value="Delete " onclick="this.form.submit()">
         <% end %>
       </div>
     </div>

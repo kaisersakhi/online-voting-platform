@@ -1,0 +1,16 @@
+<div class="main-body">
+
+  <% elections.each do |election| %>
+    <div class="active-elections-card">
+      <div class="active-election-card-left">
+        <h3><%= election.name %></h3>
+      </div>
+
+      <%= form_with(url: "/elections/#{election.id}/end", method: "PATCH") do%>
+        <button class="btn btn-danger" onclick="this.form.submit()">End</button>
+      <% end %>
+
+    </div>
+  <% end %>
+
+</div>
