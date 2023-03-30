@@ -1,16 +1,34 @@
 <div class="main-body">
 
   <% elections.each do |election| %>
+
+
+    <% if is_admin # wrap with link, if admin %>
+      <a href="/elections/<%= election.id %>" style="text-decoration: none">
+    <% end %>
+
     <div class="active-elections-card">
       <div class="active-election-card-left">
         <h3><%= election.name %></h3>
       </div>
 
-      <%= form_with(url: "/elections/#{election.id}/end", method: "PATCH") do%>
-        <button class="btn btn-danger" onclick="this.form.submit()">End</button>
+      <% user_id = current_user_info[:user].id %>
+
+      <% if current_user_info && current_user_info[:role] == 'admin' %>
+        <%= form_with(url: "/elections/#{election.id}/end", method: "PATCH") do %>
+          <button class="btn btn-danger" onclick="this.form.submit()">End</button>
+        <% end %>
+      <% elsif election.voter_participations.find_by(voter_id: user_id) %>
+        <button class="btn btn-info">Already Voted. Wait for results.</button>
+      <% else %>
+        <a href="/vote/<%= election.id %>" class="btn btn-outline-secondary">Vote!</a>
       <% end %>
 
     </div>
+
+    <% if is_admin %>
+      </a>
+    <% end %>
   <% end %>
 
 </div>

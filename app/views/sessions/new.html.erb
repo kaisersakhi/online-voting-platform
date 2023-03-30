@@ -1,3 +1,30 @@
 <div class="main-body">
+  <div class="main-body">
+    <form action="/login" method="post" class="login-register-form">
 
+      <input type="text" name="role" value="voter" hidden>
+
+
+      <div class="mb-3">
+        <label for="emailId" class="form-label">Voter ID</label>
+        <input
+          name="email_id"
+          type="text"
+          class="form-control"
+          id="emailId"
+
+        >
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          name="password"
+          type="password"
+          class="form-control"
+          id="password"
+        >
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div>
 </div>

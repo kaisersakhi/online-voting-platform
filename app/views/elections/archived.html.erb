@@ -2,11 +2,13 @@
 
   <% elections.each do |election| %>
     <div class="active-elections-card">
-      <div class="active-election-card-left">
-        <h3><%= election.name %></h3>
-      </div>
-
+      <a href="/elections/e/<%= election.custom_url %>">
+        <div class="active-election-card-left">
+          <h3><%= election.name %></h3>
+        </div>
+      </a>
     </div>
+
   <% end %>
 
 </div>

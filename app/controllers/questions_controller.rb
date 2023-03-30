@@ -1,9 +1,10 @@
 class QuestionsController < ApplicationController
 
   def show # method to render HTML form for voting in an election
-    puts "Index is having -> #{session[:question_index]}"
     election = Election.find(params[:e_id])
     questions = election.questions
+    user_id = current_user_info[:user].id
+
     if session[:question_index].nil?
       session[:question_index] = 0
     end
@@ -13,6 +14,7 @@ class QuestionsController < ApplicationController
       # and add entry into voter_participation's table
       redirect_to '/'
       session[:question_index] = 0
+
     else
       render 'show', locals: {
         election: election,
@@ -20,6 +22,19 @@ class QuestionsController < ApplicationController
       }
 
       session[:question_index] = session[:question_index] + 1
+    end
+
+    # if there is at least one question in an election
+    # after sending out first question, question_index will be 1
+    # on that event, i am marking user as participated in that election
+    # voter will be considered as voted in an election, when he/she
+    # votes for first question
+
+    if session[:question_index] == 1
+      election.voter_participations.create!(
+        election_id: election.id,
+        voter_id: user_id
+      )
     end
   end
 
@@ -30,6 +45,7 @@ class QuestionsController < ApplicationController
 
     redirect_to "/vote/#{params[:e_id]}"
   end
+
   def add_question
     question_name = params[:question_name]
     question_description = params[:question_description]

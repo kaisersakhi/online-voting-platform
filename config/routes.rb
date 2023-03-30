@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root to: 'pages#main'
 
 
-  get '/elections/e/:id', to: "elections#get_by_custom_url"
+  get '/elections/e/:name', to: "elections#get_by_custom_url"
   get '/elections/drafts', to: 'elections#show_draft_elections'
   get '/elections/drafts/edit/:id', to: 'elections#edit_draft'
   get '/elections/active', to: "elections#active_elections"

@@ -1,7 +1,7 @@
 class ElectionsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  before_action :ensure_admin_login
+  before_action :ensure_admin_login, except: [:active_elections, :archived, :get_by_custom_url]
   def index # display a list of elections
     render plain: Election.all.map { |election| election.to_s }.join("\n")
   end
@@ -23,6 +23,8 @@ class ElectionsController < ApplicationController
     )
 
     new_election.save
+
+    redirect_to '/admin/dashboard'
   end
 
 
@@ -55,7 +57,10 @@ class ElectionsController < ApplicationController
   end
 
   def active_elections
-    render 'active', locals: {elections: Election.active_elections}
+    render 'active', locals: {
+      elections: Election.active_elections,
+      is_admin: current_user_role == 'admin'
+    }
   end
 
   def archived
@@ -63,7 +68,11 @@ class ElectionsController < ApplicationController
   end
 
   def get_by_custom_url
-    render plain: params[:id]
+    election = Election.find_by(custom_url: params[:name])
+    render 'show', locals: {
+      election: election,
+      total_votes: election.voter_participations.size
+    }
   end
 
   def show # display a specific election

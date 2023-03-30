@@ -1,5 +1,6 @@
 class VotersController < ApplicationController
 
+
   def show
     # election = Election.find(params[:e_id])
 
@@ -22,7 +23,7 @@ class VotersController < ApplicationController
 
     new_voter = Voter.new(
       voter_id: voter_id,
-      password_plain: voter_password
+      password: voter_password
       )
 
     new_voter.save
