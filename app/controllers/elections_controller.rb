@@ -1,6 +1,7 @@
 class ElectionsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  before_action :ensure_admin_login
   def index # display a list of elections
     render plain: Election.all.map { |election| election.to_s }.join("\n")
   end

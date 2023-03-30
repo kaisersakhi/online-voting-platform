@@ -29,8 +29,17 @@ Rails.application.routes.draw do
   get '/vote/:e_id', to: 'questions#show'
   patch '/vote/:e_id', to: 'questions#update_option'
 
+
+
   get '/admin/dashboard', to: 'admins#dashboard'
+  get '/admin/register', to: 'admins#new'
+  post '/admin/register', to: 'admins#create'
+  get '/admin/login', to: 'admins#login'
+  get '/admin/add-voter', to: 'voters#new'
 
 
+  get '/login', to: 'sessions#new', as: :new_login
+  post '/login', to: 'sessions#create', as: :login
+  delete '/logout', to: 'sessions#destroy'
 
 end
