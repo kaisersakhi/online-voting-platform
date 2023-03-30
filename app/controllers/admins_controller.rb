@@ -2,8 +2,6 @@ class AdminsController < ApplicationController
 
   before_action :ensure_admin_login, except: [:create, :new, :login]
   def dashboard
-    @current_user = current_user
-    @user_role = current_user_role
     render 'dashboard'
   end
 

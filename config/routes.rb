@@ -35,7 +35,6 @@ Rails.application.routes.draw do
   get '/admin/register', to: 'admins#new'
   post '/admin/register', to: 'admins#create'
   get '/admin/login', to: 'admins#login'
-  get '/admin/add-voter', to: 'voters#new'
 
 
   get '/login', to: 'sessions#new', as: :new_login
