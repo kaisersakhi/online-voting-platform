@@ -30,7 +30,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-
+    current_role = current_user_info&.[](:role)
+    session[:current_user] = nil
+    decide_redirect(current_role)
   end
 
   def decide_redirect(role = nil)
@@ -41,19 +43,19 @@ class SessionsController < ApplicationController
     if current_user_info
       flash[:message] = "Successfully logged in!"
       if user_role == 'admin'
-        redirect_to '/admin/dashboard'
+        redirect_to admin_dashboard_path
       else
-        redirect_to '/elections/active'
+        redirect_to active_election_path
       end
     else
       # when user isn't logged in, or failed to login in based on supplied role
 
       if role == 'admin'
         flash[:error] = "Email or Password is not correct."
-        redirect_to '/admin/login'
+        redirect_to admin_login_path
       else
         flash[:error] = "Voter ID or Password is not correct."
-        redirect_to '/login'
+        redirect_to login_path
       end
     end
   end

@@ -13,9 +13,8 @@ class QuestionsController < ApplicationController
       # redirect voter to dashboard
       # and add entry into voter_participation's table
       flash[:message] = "You've Successfully voted in #{election.name}"
-      redirect_to '/'
+      redirect_to root_path
       session[:question_index] = 0
-
     else
       render 'show', locals: {
         election: election,
@@ -27,7 +26,7 @@ class QuestionsController < ApplicationController
 
     # if there is at least one question in an election
     # after sending out first question, question_index will be 1
-    # on that event, i am marking user as participated in that election
+    # on that event, i am marking user as participated in that election.
     # voter will be considered as voted in an election, when he/she
     # votes for first question
 
@@ -41,17 +40,7 @@ class QuestionsController < ApplicationController
 
   def update_option # method to update vote count
     option = Option.find(params[:opt_id])
-    option.total_vote_count += 1
-    option.save
-
-    redirect_to "/vote/#{params[:e_id]}"
+    option.update_count
+    redirect_to vote_path(e_id: params[:e_id])
   end
-
-
-
-  # GET election/:e_id/question/:q_id/edit
-
-
-
-
 end

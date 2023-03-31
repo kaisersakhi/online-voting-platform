@@ -6,26 +6,21 @@
     </div>
   <% end %>
 
+  <% user_id = current_user_info&.[](:user)&.id %>
+
   <% elections.each do |election| %>
-
-
     <div class="active-elections-card">
       <% if is_admin
            # wrap with link, if admin %>
         <a href="/elections/<%= election.id %>" style="text-decoration: none">
       <% end %>
-
       <div class="active-election-card-left">
         <h3><%= election.name %></h3>
       </div>
-
       <% if is_admin %>
         </a>
       <% end %>
-
-      <% user_id = current_user_info&.[](:user)&.id %>
-
-      <% if current_user_info && current_user_info[:role] == 'admin' %>
+      <% if current_user_info && is_admin %>
         <%= form_with(url: "/elections/#{election.id}/end", method: "PATCH") do %>
           <button class="btn btn-danger" onclick="this.form.submit()">End</button>
         <% end %>
@@ -34,10 +29,6 @@
       <% else %>
         <a href="/vote/<%= election.id %>" class="btn btn-outline-secondary">Vote!</a>
       <% end %>
-
     </div>
-
-
   <% end %>
-
 </div>

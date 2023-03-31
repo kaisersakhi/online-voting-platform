@@ -2,13 +2,7 @@
 
   <div class="election-heading">
     <h3><%= election.name %></h3>
-    <%#= form_with(url: "/elections/#{election.id}/launch", method: "PATCH") do %>
-<!--      <button class="btn btn-outline-success" onclick="this.form.submit()">Launch</button>-->
-    <%# end %>
   </div>
-
-
-
 
   <% election.questions.each do |question| %>
     <div class="saved-questions">
@@ -33,7 +27,3 @@
     </div>
   <% end %>
 </div>
-
-<script type="text/javascript" charset="utf-8">
-
-</script>

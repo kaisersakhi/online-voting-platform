@@ -1,5 +1,5 @@
 <div class="main-body">
-  <form action="/voters" method="post" class="login-register-form">
+  <%= form_with(url: voters_path, method: :post, class: 'login-register-form') do %>
 
     <div class="mb-3">
       <label for="emailId" class="form-label">New Voter ID</label>
@@ -16,5 +16,5 @@
       <input name="voter_password" type="password" class="form-control" id="password">
     </div>
     <button type="submit" class="btn btn-primary">Add New Voter</button>
-  </form>
+  <% end %>
 </div>

@@ -4,18 +4,15 @@ class ApplicationController < ActionController::Base
 
   def ensure_voter_login
     unless  current_user_info && current_user_role == 'voter'
-      redirect_to '/login'
+      redirect_to login_path
     end
   end
 
   def ensure_admin_login
     unless current_user_info && current_user_role == 'admin'
-      redirect_to '/admin/login'
+      redirect_to admin_login_path
     end
   end
-
-
-
   def current_user_info
 
     user_id = session[:current_user]&.[]('user_id')

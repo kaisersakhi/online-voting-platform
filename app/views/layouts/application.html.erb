@@ -30,18 +30,17 @@
         <li class="nav-item">
           <a class="nav-link active" href="/elections/archived">Results</a>
         </li>
-        <!--        <li class="nav-item">-->
-        <!--          <a class="nav-link" href="#">Running Elections</a>-->
-        <!--        </li>-->
       </ul>
 
       <%
         user_role = current_user_info&.[](:role)
       %>
 
+
+
       <form class="d-flex">
         <% if current_user_info && current_user_info[:user] && current_user_info[:role] == 'admin' %>
-          <a href="/admin/dashboard">
+          <a href="<%= admin_dashboard_path %>">
             <button class="btn btn-outline-success">Admin Dashboard</button>
           </a>
         <% elsif user_role == 'voter' %>
@@ -50,12 +49,10 @@
               <%= current_user_info[:user].voter_id %>
             </button>
         <% else %>
-          <a href="/admin/login">
+          <a href="<%= admin_login_path %>">
             <button class="btn btn-primary">Admin Area</button>
           </a>
         <% end %>
-
-
       </form>
     </div>
   </div>
@@ -69,10 +66,6 @@
     <%= flash[:message] ? flash[:message] : "" %>
   </p>
 </div>
-
-<!--<div class="flash-error">-->
-<!--    <p>Successfully Logged In!</p>-->
-<!--</div>-->
 
 <%= yield %>
 

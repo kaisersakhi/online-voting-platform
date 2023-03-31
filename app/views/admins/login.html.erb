@@ -1,6 +1,6 @@
 <div class="main-body">
   <div class="main-body">
-    <form action="/login" method="post" class="login-register-form">
+      <%= form_with(url: login_path, method: :post, class: 'login-register-form') do %>
       <input type="text" name="role" value="admin" hidden>
       <div class="mb-3">
         <label for="emailId" class="form-label">Email address</label>
@@ -11,6 +11,6 @@
         <input name="password" type="password" class="form-control" id="password">
       </div>
       <button type="submit" class="btn btn-primary">Login As Admin</button>
-    </form>
+    <% end %>>
   </div>
 </div>

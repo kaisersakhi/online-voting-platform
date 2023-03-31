@@ -1,26 +1,25 @@
 <div class="main-body">
-    <div class="main-body">
-      <form action="/admin/register" method="post" class="login-register-form">
+  <div class="main-body">
+    <%= form_with(url: admin_register_path, method: :post, class: 'login-register-form') do %>
+      <div class="mb-3">
+        <label for="firstName" class="form-label">First Name</label>
+        <input name="first_name" type="text" class="form-control" id="firstName" aria-describedby="emailHelp">
+      </div>
 
-        <div class="mb-3">
-          <label for="firstName" class="form-label">First Name</label>
-          <input name="first_name" type="text" class="form-control" id="firstName" aria-describedby="emailHelp">
-        </div>
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input name="last_name" type="text" class="form-control" id="lastName" aria-describedby="emailHelp">
+      </div>
 
-        <div class="mb-3">
-          <label for="lastName" class="form-label">Last Name</label>
-          <input name="last_name" type="text" class="form-control" id="lastName" aria-describedby="emailHelp">
-        </div>
-
-        <div class="mb-3">
-          <label for="emailId" class="form-label">Email address</label>
-          <input name="email_id" type="email" class="form-control" id="emailId" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input name="password" type="password" class="form-control" id="password">
-        </div>
-        <button type="submit" class="btn btn-primary">Register</button>
-      </form>
-    </div>
+      <div class="mb-3">
+        <label for="emailId" class="form-label">Email address</label>
+        <input name="email_id" type="email" class="form-control" id="emailId" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input name="password" type="password" class="form-control" id="password">
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+    <% end %>
+  </div>
 </div>

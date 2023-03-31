@@ -31,7 +31,7 @@ class ElectionsController < ApplicationController
         custom_url: election_custom_url
       )
       new_election.save
-      redirect_to '/admin/dashboard'
+      redirect_to admin_dashboard_path
     end
   end
 
@@ -43,24 +43,26 @@ class ElectionsController < ApplicationController
 
   def edit_draft
     election_id = params[:id]
-    render 'edit_draft', locals: { election: Election.find(election_id) }
+    render 'edit_draft', locals: {
+      election: Election.find(election_id)
+    }
   end
 
   def launch
     election = Election.find(params[:id])
     if election.questions.size > 0
       election.launch
-      redirect_to '/admin/dashboard'
+      redirect_to admin_dashboard_path
     else
       flash[:error] = "There must be at least one question, for election launch."
-      redirect_to "/elections/drafts/edit/#{election.id}"
+      redirect_to edit_draft_path(id: election.id)
     end
   end
 
   def end
     election = Election.find(params[:id])
     election.end
-    redirect_to '/admin/dashboard'
+    redirect_to admin_dashboard_path
   end
 
   def active_elections
@@ -71,7 +73,9 @@ class ElectionsController < ApplicationController
   end
 
   def archived
-    render 'archived', locals: { elections: Election.archived }
+    render 'archived', locals: {
+      elections: Election.archived
+    }
   end
 
   def get_by_custom_url
@@ -84,7 +88,7 @@ class ElectionsController < ApplicationController
       }
     else
       flash[:error] = "No elections found!"
-      redirect_to '/'
+      redirect_to root_path
     end
   end
 
@@ -110,7 +114,7 @@ class ElectionsController < ApplicationController
       question_description,
       options
     )
-    redirect_to "/elections/drafts/edit/#{election.id}"
+    redirect_to edit_draft_path(id: election.id)
   end
 
 
@@ -140,12 +144,11 @@ class ElectionsController < ApplicationController
       )
       index += 1
     end
-    redirect_to "/elections/drafts/edit/#{election.id}"
+    redirect_to edit_draft_path(id: election.id)
   end
 
 
   def edit_question # return an HTML form to edit a question
-    # Todo: move this action to election_controller
     election = Election.find(params[:e_id])
     question = election.questions.find(params[:q_id])
     render 'edit_question', locals: {
@@ -155,11 +158,10 @@ class ElectionsController < ApplicationController
   end
 
   def destroy_question
-    # Todo: move this action to election_controller
     election = Election.find(params[:e_id])
     question = election.questions.find(params[:q_id])
     question.destroy!
-    redirect_to "/elections/drafts/edit/#{election.id}"
+    redirect_to edit_draft_path(id: election.id)
   end
 
   def edit # returns an HTML form for editing an elections

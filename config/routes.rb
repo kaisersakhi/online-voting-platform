@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get '/elections/e/:name', to: "elections#get_by_custom_url", as: :custom
   get '/elections/drafts', to: 'elections#show_draft_elections', as: :drafts
-  get '/elections/drafts/edit/:id', to: 'elections#edit_draft'
+  get '/elections/drafts/edit/:id', to: 'elections#edit_draft', as: :edit_draft
   get '/elections/active', to: "elections#active_elections", as: :active_election
   get '/elections/archived', to: 'elections#archived', as: :archived_election
   patch '/elections/:id/launch', to: 'elections#launch', as: :launch_election
