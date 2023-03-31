@@ -7,7 +7,7 @@
     <% end %>
   </div>
 
-  <form action="/election/<%= election.id %>/question" method="post">
+  <%= form_with url: add_question_path(id: election.id), method: :post do %>
     <input type="number" name="question_id" value="-1" hidden>
     <div class="form-group">
       <label for="questionName">Question Name</label>
@@ -25,7 +25,7 @@
 
     </div>
     <button style="margin-top: 20px; width: 100%;" type="submit" class="btn btn-primary">Add</button>
-  </form>
+  <% end %>
 
 
 

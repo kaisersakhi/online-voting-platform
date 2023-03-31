@@ -23,7 +23,7 @@
         </a>
       <% end %>
 
-      <% user_id = current_user_info[:user].id %>
+      <% user_id = current_user_info&.[](:user)&.id %>
 
       <% if current_user_info && current_user_info[:role] == 'admin' %>
         <%= form_with(url: "/elections/#{election.id}/end", method: "PATCH") do %>

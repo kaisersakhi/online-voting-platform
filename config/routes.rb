@@ -7,33 +7,32 @@ Rails.application.routes.draw do
   root to: 'pages#main'
 
 
-  get '/elections/e/:name', to: "elections#get_by_custom_url"
-  get '/elections/drafts', to: 'elections#show_draft_elections'
+  get '/elections/e/:name', to: "elections#get_by_custom_url", as: :custom
+  get '/elections/drafts', to: 'elections#show_draft_elections', as: :drafts
   get '/elections/drafts/edit/:id', to: 'elections#edit_draft'
-  get '/elections/active', to: "elections#active_elections"
-  get '/elections/archived', to: 'elections#archived'
-  patch '/elections/:id/launch', to: 'elections#launch'
-  patch '/elections/:id/end', to: 'elections#end'
+  get '/elections/active', to: "elections#active_elections", as: :active_election
+  get '/elections/archived', to: 'elections#archived', as: :archived_election
+  patch '/elections/:id/launch', to: 'elections#launch', as: :launch_election
+  patch '/elections/:id/end', to: 'elections#end', as: :end_election
   resources :elections
 
 
   # This route will be used to post new questions in an election
-  get 'election/:e_id/question/:q_id/edit', to: 'questions#edit'
-  # get 'election/:e_id/question', to: "questions#all_questions"
-  post '/election/:id/question', to: "questions#add_question" # notice 's'
-  delete '/election/:e_id/question/:q_id', to: 'questions#destroy'
-  patch '/election/:e_id/question/:q_id', to: 'questions#update'
+  get 'election/:e_id/question/:q_id/edit', to: 'elections#edit_question', as: :edit_question_of
+  post '/election/:id/question', to: "elections#add_question", as: :add_question # notice 's'
+  delete '/election/:e_id/question/:q_id', to: 'elections#destroy_question', as: :delete_question
+  patch '/election/:e_id/question/:q_id', to: 'elections#update_question', as: :update_question
 
 
   resources :voters
   get '/vote/:e_id', to: 'questions#show'
-  patch '/vote/:e_id', to: 'questions#update_option'
+  patch '/vote/:e_id', to: 'questions#update_option', as: :vote
 
 
 
-  get '/admin/dashboard', to: 'admins#dashboard'
+  get '/admin/dashboard', to: 'admins#dashboard', as: :admin_dashboard
   get '/admin/register', to: 'admins#new'
-  post '/admin/register', to: 'admins#create'
+  post '/admin/register', to: 'admins#create' , as: :new_admin
   get '/admin/login', to: 'admins#login'
 
 

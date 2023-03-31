@@ -97,6 +97,71 @@ class ElectionsController < ApplicationController
     }
   end
 
+
+  def add_question
+    question_name = params[:question_name]
+    question_description = params[:question_description]
+    options = params[:options].to_s.split(",")
+
+    election = Election.find(params[:id])
+
+    election.add_new_question(
+      question_name,
+      question_description,
+      options
+    )
+    redirect_to "/elections/drafts/edit/#{election.id}"
+  end
+
+
+  # PATCH election/:id/question/:id
+  def update_question # update a specific question
+    # Todo: move this action to election_controller
+    election = Election.find(params[:e_id])
+    question = election.questions.find(params[:q_id])
+    question.question_name = params[:question_name]
+    question.question_description = params[:question_description]
+    question.save
+    # for options to update correctly, admin must maintain the options order
+
+    options = params[:options].to_s.split(",")
+    index = 0
+    question.options.each do |option|
+      option.name = options[index].strip
+      option.save!
+      index += 1
+    end
+
+    # admin has added new options
+    while index < options.length
+      question.options.create!(
+        name: options[index].strip,
+        total_vote_count: 0
+      )
+      index += 1
+    end
+    redirect_to "/elections/drafts/edit/#{election.id}"
+  end
+
+
+  def edit_question # return an HTML form to edit a question
+    # Todo: move this action to election_controller
+    election = Election.find(params[:e_id])
+    question = election.questions.find(params[:q_id])
+    render 'edit_question', locals: {
+      question: question,
+      election_id: election.id
+    }
+  end
+
+  def destroy_question
+    # Todo: move this action to election_controller
+    election = Election.find(params[:e_id])
+    question = election.questions.find(params[:q_id])
+    question.destroy!
+    redirect_to "/elections/drafts/edit/#{election.id}"
+  end
+
   def edit # returns an HTML form for editing an elections
 
   end

@@ -20,16 +20,31 @@ class Election < ApplicationRecord
   end
 
   def launch
-    status = "active"
-    save
+    self.status = "active"
+    self.save
   end
 
   def end
-    status = "archived"
-    save
+    self.status = "archived"
+    self.save
   end
 
   def to_s
     "#{name} | #{status}"
+  end
+
+  def add_new_question(question_name, question_description, options)
+    new_question = questions.new(
+      question_name: question_name,
+      question_description: question_description
+    )
+    new_question.save
+
+    options.each do |option|
+      new_question.options.create!(
+        name: option.strip,
+        total_vote_count: 0
+      )
+    end
   end
 end
