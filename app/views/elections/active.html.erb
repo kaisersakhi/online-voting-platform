@@ -1,16 +1,27 @@
 <div class="main-body">
 
+  <% if elections.length == 0 %>
+    <div>
+      <p>There are no active elections as of now, check back later!</p>
+    </div>
+  <% end %>
+
   <% elections.each do |election| %>
 
 
-    <% if is_admin # wrap with link, if admin %>
-      <a href="/elections/<%= election.id %>" style="text-decoration: none">
-    <% end %>
-
     <div class="active-elections-card">
+      <% if is_admin
+           # wrap with link, if admin %>
+        <a href="/elections/<%= election.id %>" style="text-decoration: none">
+      <% end %>
+
       <div class="active-election-card-left">
         <h3><%= election.name %></h3>
       </div>
+
+      <% if is_admin %>
+        </a>
+      <% end %>
 
       <% user_id = current_user_info[:user].id %>
 
@@ -26,9 +37,7 @@
 
     </div>
 
-    <% if is_admin %>
-      </a>
-    <% end %>
+
   <% end %>
 
 </div>

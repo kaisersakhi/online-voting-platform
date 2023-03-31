@@ -2,6 +2,7 @@ class ElectionsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   before_action :ensure_admin_login, except: [:active_elections, :archived, :get_by_custom_url]
+
   def index # display a list of elections
     render plain: Election.all.map { |election| election.to_s }.join("\n")
   end
@@ -13,21 +14,26 @@ class ElectionsController < ApplicationController
   def create # create a new election
     election_name = params[:election_name]
     election_custom_url = params[:election_custom_url]
+    election_custom_url = if election_custom_url == ""
+                            election_name.to_s.downcase.strip.gsub(' ', '-')
+                          else
+                            election_custom_url.to_s.downcase.strip.gsub(' ', '-')
+                          end
     status = "draft"
-    # puts election_custom_url, election_name
-
-    new_election = Election.new(
-      name: election_name,
-      status: status,
-      custom_url: election_custom_url.to_s.downcase.strip.gsub(' ', '-')
-    )
-
-    new_election.save
-
-    redirect_to '/admin/dashboard'
+    # puts election_custom_url.class, election_name.class
+    if election_name.to_s.length == ""
+      flash[:error] = "Election must have a name."
+      redirect_to '/elections/new'
+    else
+      new_election = Election.new(
+        name: election_name,
+        status: status,
+        custom_url: election_custom_url
+      )
+      new_election.save
+      redirect_to '/admin/dashboard'
+    end
   end
-
-
 
   def show_draft_elections
     render 'draft_elections', locals: {
@@ -37,22 +43,23 @@ class ElectionsController < ApplicationController
 
   def edit_draft
     election_id = params[:id]
-    render 'edit_draft', locals: {election: Election.find(election_id)}
+    render 'edit_draft', locals: { election: Election.find(election_id) }
   end
 
   def launch
     election = Election.find(params[:id])
-    election.status = "active"
-    election.save
-
-    redirect_to '/admin/dashboard'
+    if election.questions.size > 0
+      election.launch
+      redirect_to '/admin/dashboard'
+    else
+      flash[:error] = "There must be at least one question, for election launch."
+      redirect_to "/elections/drafts/edit/#{election.id}"
+    end
   end
 
   def end
     election = Election.find(params[:id])
-    election.status = "archived"
-    election.save
-
+    election.end
     redirect_to '/admin/dashboard'
   end
 
@@ -64,15 +71,21 @@ class ElectionsController < ApplicationController
   end
 
   def archived
-    render 'archived', locals: {elections: Election.archived}
+    render 'archived', locals: { elections: Election.archived }
   end
 
   def get_by_custom_url
     election = Election.find_by(custom_url: params[:name])
-    render 'show', locals: {
-      election: election,
-      total_votes: election.voter_participations.size
-    }
+
+    if election
+      render 'show', locals: {
+        election: election,
+        total_votes: election.voter_participations.size
+      }
+    else
+      flash[:error] = "No elections found!"
+      redirect_to '/'
+    end
   end
 
   def show # display a specific election

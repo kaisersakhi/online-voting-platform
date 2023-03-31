@@ -26,3 +26,27 @@
 a{
     text-decoration: none;
 }
+
+.flash-message{
+    text-align: center;
+    /*padding: 10px 5px;*/
+    padding-top: 5px;
+    border-radius: 30px;
+    border: 1px solid darkolivegreen;
+    margin: 10px 20%;
+    background:  #48c9b0;
+}
+
+.flash-error{
+    padding-top: 5px;
+    text-align: center;
+    /*padding: 10px 5px;*/
+    border-radius: 30px;
+    border: 1px solid darkolivegreen;
+    margin: 10px 20%;
+    background: #c0392b;
+}
+
+div.flash-error p{
+    color: white;
+}

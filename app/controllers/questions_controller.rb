@@ -12,6 +12,7 @@ class QuestionsController < ApplicationController
     if session[:question_index] == questions.length
       # redirect voter to dashboard
       # and add entry into voter_participation's table
+      flash[:message] = "You've Successfully voted in #{election.name}"
       redirect_to '/'
       session[:question_index] = 0
 
@@ -104,7 +105,6 @@ class QuestionsController < ApplicationController
       )
       index += 1
     end
-
     redirect_to "/elections/drafts/edit/#{election.id}"
   end
 

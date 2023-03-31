@@ -36,7 +36,7 @@
       </ul>
 
       <%
-        user_role = current_user_info[:role]
+        user_role = current_user_info&.[](:role)
       %>
 
       <form class="d-flex">
@@ -61,9 +61,18 @@
   </div>
 </nav>
 
-<div class="">
 
+
+<div class="<%= flash[:message] ?  "flash-message " : "" %> <%= flash[:error] ? "flash-error" : "" %>">
+  <p>
+    <%= flash[:error] ? flash[:error] : "" %>
+    <%= flash[:message] ? flash[:message] : "" %>
+  </p>
 </div>
+
+<!--<div class="flash-error">-->
+<!--    <p>Successfully Logged In!</p>-->
+<!--</div>-->
 
 <%= yield %>
 

@@ -19,6 +19,16 @@ class Election < ApplicationRecord
     all.where("status = ?", "archived")
   end
 
+  def launch
+    status = "active"
+    save
+  end
+
+  def end
+    status = "archived"
+    save
+  end
+
   def to_s
     "#{name} | #{status}"
   end
