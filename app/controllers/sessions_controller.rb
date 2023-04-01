@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
-    if current_user_info
+    if get_current_user
       decide_redirect
     else
       render 'new'
@@ -21,26 +21,28 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(password)
       session[:current_user] = {
-        user_id: user.id,
-        role: user_role
+        'user_id' => user.id,
+        'role' => user_role
       }
+      # p session
     end
 
     decide_redirect(user_role)
   end
 
   def destroy
-    current_role = current_user_info&.[](:role)
+    current_role = get_current_user_role
     session[:current_user] = nil
+    @current_user_info = nil
     decide_redirect(current_role)
   end
 
   def decide_redirect(role = nil)
     # user is visiting login page, when logged in
-    user_role = current_user_info&.[](:role)
+    user_role = get_current_user_role
 
 
-    if current_user_info
+    if user_role
       flash[:message] = "Successfully logged in!"
       if user_role == 'admin'
         redirect_to admin_dashboard_path

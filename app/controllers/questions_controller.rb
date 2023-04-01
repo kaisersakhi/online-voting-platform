@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   def show # method to render HTML form for voting in an election
     election = Election.find(params[:e_id])
     questions = election.questions
-    user_id = current_user_info&.[](:user)&.id
+    user_id = get_current_user&.id
     if session[:question_index].nil?
       session[:question_index] = 0
     end
