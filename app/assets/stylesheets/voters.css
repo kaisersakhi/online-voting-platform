@@ -1,0 +1,17 @@
+.voters-list{
+    list-style: none;
+}
+
+.voters-list-item{
+    display: flex;
+    justify-content: space-between;
+    background: #999999;
+    margin-top: 8px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.voters-list-item-controls{
+    display: inline-flex;
+    justify-content: space-between;
+}

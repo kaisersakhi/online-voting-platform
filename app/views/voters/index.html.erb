@@ -1,7 +1,17 @@
 <div class="main-body">
-  <ul>
+  <ul class="voters-list">
     <% voters.each do |voter| %>
-      <li><%= voter.voter_id %></li>
+      <li class="voters-list-item">
+        <div class="voters-list-item-name">
+          <h3><%= voter.voter_id %></h3>
+        </div>
+        <div class="voters-list-item-controls">
+          <a href="/voters/<%= voter.id %>/edit" class="btn btn-info">Update</a>
+          <%= form_with url: "/voters/#{voter.id}", method: :delete do %>
+            <button class="btn btn-danger" onclick="this.form.submit()">Delete</button>
+          <% end %>
+        </div>
+      </li>
     <% end %>
   </ul>
 </div>

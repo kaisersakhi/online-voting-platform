@@ -1,0 +1,46 @@
+<div class="main-body">
+  <div class="main-body">
+    <%= form_with(url: "/voters/#{voter.id}", method: :patch, class: 'login-register-form') do %>
+      <div class="mb-3">
+        <label for="firstName" class="form-label">First Name</label>
+        <input
+          name="first_name"
+          type="text" class="form-control"
+          id="firstName"
+          aria-describedby="emailHelp"
+          value="<%= voter.first_name %>"
+        >
+      </div>
+
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input
+          name="last_name"
+          type="text"
+          class="form-control"
+          id="lastName"
+          aria-describedby="emailHelp"
+          value="<%= voter.first_name%>"
+        >
+      </div>
+
+      <div class="mb-3">
+        <label for="emailId" class="form-label">Voter ID</label>
+        <input
+          name="voter_id"
+          type="text"
+          class="form-control"
+          id="emailId"
+          aria-describedby="emailHelp"
+          value="<%= voter.voter_id %>"
+          readonly
+        >
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input name="password" type="password" class="form-control" id="password">
+      </div>
+      <button type="submit" class="btn btn-primary">Update Voter</button>
+    <% end %>
+  </div>
+</div>

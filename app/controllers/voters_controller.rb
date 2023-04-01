@@ -11,6 +11,7 @@ class VotersController < ApplicationController
       voters: Voter.all
     }
   end
+
   def new
   end
 
@@ -24,4 +25,28 @@ class VotersController < ApplicationController
     new_voter.save
     redirect_to admin_dashboard_path
   end
+
+  def edit
+    render 'edit', locals: {
+      voter: Voter.find(params[:id])
+    }
+  end
+
+  def update
+    first_name = params[:first_name]
+    last_name = params[:last_name]
+    password = params[:password]
+
+    voter = Voter.find(params[:id])
+    voter.update_record(first_name, last_name, password)
+
+    redirect_to voters_path
+  end
+
+  def destroy
+    voter = Voter.find(params[:id])
+    voter.destroy!
+    redirect_to voters_path
+  end
+
 end

@@ -47,7 +47,7 @@
         <% elsif user_role == 'voter' %>
           <button class="btn btn-success">
             Voter ID :
-            <%= get_current_user.voter_id %>
+            <%= get_current_user.voter_id.to_s.upcase %>
           </button>
         <% else %>
           <a href="<%= admin_login_path %>">
