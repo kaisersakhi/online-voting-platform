@@ -5,37 +5,34 @@ class QuestionsController < ApplicationController
     election = Election.find(params[:e_id])
     questions = election.questions
     user_id = get_current_user&.id
-    if session[:question_index].nil?
-      session[:question_index] = 0
-    end
 
-    if session[:question_index] == questions.length
+    current_index = VoterParticipation.get_question_index(election.id, user_id) || 0
+    # if it is the last question, then end the process of showing questions
+    if current_index == questions.length
       # redirect voter to dashboard
       # and add entry into voter_participation's table
       flash[:message] = "You've Successfully voted in #{election.name}"
       redirect_to root_path
-      session[:question_index] = 0
     else
+      # else keep showing questions
       render 'show', locals: {
         election: election,
-        question: questions[session[:question_index]]
+        question: questions[current_index]
       }
-
-      session[:question_index] = session[:question_index] + 1
     end
 
-    # if there is at least one question in an election
-    # after sending out first question, question_index will be 1
-    # on that event, i am marking user as participated in that election.
-    # voter will be considered as voted in an election, when he/she
-    # votes for first question
-
-    if session[:question_index] == 1
+    # if there exits an entry, then skip
+    unless VoterParticipation.is_present(election.id, user_id)
       election.voter_participations.create!(
         election_id: election.id,
-        voter_id: user_id
+        voter_id: user_id,
+        question_index: 1 # essentially, this is current-index
       )
+      return # return as current_index will be 1 when participations[] will be empty
+      # proceeding further will cause an exception, because there is not entry in
+      # the table
     end
+    VoterParticipation.inc_index_value(election.id, user_id)
   end
 
   def update_option # method to update vote count
