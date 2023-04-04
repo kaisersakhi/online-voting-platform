@@ -27,7 +27,10 @@ class AdminsController < ApplicationController
     )
 
     if new_admin.save
-      redirect_to '/admin/login'
+      redirect_to admin_login_path
+    else
+      flash[:error] = new_admin.errors.full_messages.join(", ")
+      redirect_to admin_login_path
     end
   end
 end

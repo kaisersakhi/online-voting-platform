@@ -1,16 +1,30 @@
 <div class="main-body">
 
-  <div class="election-heading">
-    <h3>Admin Dashboard</h3>
+  <div class="bg-gray-200 rounded-full shadow text-center text-3xl py-1 mt-2 mb-4">
+    <h3 class="py-1 text-gray-500 font-light tracking-widest">Admin Dashboard</h3>
   </div>
 
-  <ul class="admin-dashboard-options">
-    <li><a href="/elections/new">Create New Election</a></li>
-    <li><a href="/elections/drafts">Draft Elections</a></li>
-    <li><a href="/elections/active">View Running Election</a></li>
-    <li><a href="/elections/archived">Archived Elections</a></li>
-    <li><a href="/voters/new">Add Voter</a></li>
-    <li><a href="/voters">Manage Voters</a></li>
-  </ul>
+  <%
+    bg_image_link = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+  %>
+
+  <div class="grid mt-2">
+    <a href="<%= new_election_path %>">
+
+      <div
+        class="rounded-lg border-2 border-gray-500 p-4 text-center"
+        style="background-image: url('<%= bg_image_link %>'); height: 200px; width: 200px; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(5px);">
+        <p class="pt-10 mt-10 text-xl text-sky-700">New Election</p>
+      </div>
+    </a>
+  </div>
 
 </div>
+
+
+<!--<a href="/elections/new">Create New Election</a>-->
+<!--<a href="/elections/drafts">Draft Elections</a>-->
+<!--<a href="/elections/active">View Running Election</a>-->
+<!--<a href="/elections/archived">Archived Elections</a>-->
+<!--<a href="/voters/new">Add Voter</a>-->
+<!--<a href="/voters">Manage Voters</a>-->

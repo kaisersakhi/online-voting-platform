@@ -7,9 +7,10 @@ class VotersController < ApplicationController
   end
 
   def index
-    render 'index', locals: {
-      voters: Voter.all
-    }
+    # render 'index', locals: {
+    #   voters: Voter.all
+    # }
+    @voters = Voter.all
   end
 
   def new
@@ -22,7 +23,7 @@ class VotersController < ApplicationController
       voter_id: voter_id,
       password: voter_password
       )
-    new_voter.save
+    flash[:error] = new_voter.errors.full_messages.join(', ') unless new_voter.save
     redirect_to admin_dashboard_path
   end
 

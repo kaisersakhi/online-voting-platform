@@ -1,0 +1,39 @@
+<div class="main-body">
+  <%
+    form_css_classes = "bg-white rounded-lg shadow-lg py-10 px-8 space-y-6 mt-20"
+  %>
+
+  <%= form_with(url: login_path, method: :post, class: form_css_classes) do %>
+    <p class="w-full text-gray-500 text-3xl text-center pb-8 font-semibold">
+      <%= locals[:form_heading] %>
+    </p>
+    <input type="text" name="role" value="<%= locals[:user_role] %>" hidden>
+    <div>
+      <label class="text-gray-500 text-sm px-1" for="emailId">Email address</label>
+      <input
+        class="block text-gray-500 rounded-full focus:outline-none w-full"
+        name="email_id"
+        type="<%= locals[:user_role] == 'admin' ? "email" : "text" %>"
+        id="emailId"
+        placeholder="yourmail@example.com"
+      >
+    </div>
+    <div>
+      <label for="password" class="text-gray-500 text-sm px-1">Password</label>
+      <input
+        class="block text-gray-500 rounded-full focus:outline-none w-full"
+        name="password"
+        type="password"
+        id="password"
+        placeholder="********"
+      >
+    </div>
+    <div class="w-full text-center">
+      <button
+        type="submit"
+        class="rounded-full bg-blue-800 text-white hover:bg-blue-300 py-1 px-8 font-light">
+        Login
+      </button>
+    </div>
+  <% end %>
+</div>

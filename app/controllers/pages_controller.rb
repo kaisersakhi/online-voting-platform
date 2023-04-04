@@ -1,7 +1,5 @@
 class PagesController < ApplicationController
   def main
-    render 'main'
+    # render 'main'
   end
-
-
 end

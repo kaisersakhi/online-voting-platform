@@ -40,4 +40,14 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create', as: :login
   delete '/logout', to: 'sessions#destroy', as: :logout
 
+
+
+  # resources :targets, only: [] do
+  #   member do
+  #     get 'content'
+  #     get 'details'
+  #     get 'versions'
+  #   end
+  # end
+
 end

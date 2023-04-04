@@ -3,6 +3,9 @@ class VoterParticipation < ApplicationRecord
   belongs_to :voter
   belongs_to :election
 
+  validates :voter_id, presence: true
+  validates :election_id, presence: true
+
   def self.inc_index_value(election_id, voter_id)
     participation = all.find_by(election_id: election_id, voter_id: voter_id)
     unless participation.nil?

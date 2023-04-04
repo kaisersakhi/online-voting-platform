@@ -1,5 +1,4 @@
 class ElectionsController < ApplicationController
-  skip_before_action :verify_authenticity_token
 
   before_action :ensure_admin_login, except: [:active_elections, :archived, :get_by_custom_url]
 
@@ -30,7 +29,7 @@ class ElectionsController < ApplicationController
         status: status,
         custom_url: election_custom_url
       )
-      new_election.save
+      flash[:error] = new_election.errors.full_messages.join(',') unless new_election.save
       redirect_to admin_dashboard_path
     end
   end

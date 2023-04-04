@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
 
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -19,47 +18,47 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="<%= root_path %>">OVP</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" href="<%= archived_election_path %>">Results</a>
-        </li>
-      </ul>
+<nav class="p-5 bg-white shadow">
+  <div class="flex align-items-end justify-between w-full">
+
+    <div class="logo">
+      <a
+        class="text-2xl font-monospace cursor-pointer p-1 tracking-widest font-black text-gray-500"
+        title="Home"
+        href="<%= root_path %>">
+        OVP
+      </a>
+    </div>
+
+    <div class="flex justify-end rounded-full text-white" id="navbarSupportedContent">
+
+      <a class="border-r-12 rounded-full bg-blue-800 hover:bg-blue-300 px-4 py-1" href="<%= archived_election_path %>">Results</a>
 
       <%
         user_role = get_current_user_role
         current_user = get_current_user
+        btn_style = "border-r-12 rounded-full px-4 py-1 mx-1"
       %>
 
-
-
-      <div class="d-flex">
-        <% if user_role == 'admin' %>
-          <a href="<%= admin_dashboard_path %>">
-            <button class="btn btn-outline-success">Admin Dashboard</button>
-          </a>
-        <% elsif user_role == 'voter' %>
-          <button class="btn btn-success">
-            Voter ID :
-            <%= get_current_user.voter_id.to_s.upcase %>
-          </button>
-        <% else %>
-          <a href="<%= admin_login_path %>">
-            <button class="btn btn-primary">Admin Area</button>
-          </a>
+      <% if user_role == 'admin' %>
+        <a href="<%= admin_dashboard_path %>">
+          <button class="<%= btn_style %> bg-green-600 hover:bg-green-900">Admin Dashboard</button>
+        </a>
+      <% elsif user_role == 'voter' %>
+        <button class="<%= btn_style %> bg-green-600">
+          Voter ID :
+          <%= get_current_user.voter_id.to_s.upcase %>
+        </button>
+      <% else %>
+        <a href="<%= admin_login_path %>">
+          <button class="<%= btn_style %> bg-green-600">Admin Area</button>
+        </a>
+      <% end %>
+      <% if current_user %>
+        <%= form_with url: logout_path, method: :delete do %>
+          <button class="<%= btn_style %> bg-red-800 hover:bg-red-300" onclick="this.form.submit()" style="margin: 0 5px;">Logout</button>
         <% end %>
-        <% if current_user %>
-          <%= form_with url: logout_path, method: :delete do %>
-            <button class="btn btn-danger" onclick="this.form.submit()" style="margin: 0 5px;">Logout</button>
-          <% end %>
-        <% end %>
-      </div>
+      <% end %>
     </div>
   </div>
 </nav>
