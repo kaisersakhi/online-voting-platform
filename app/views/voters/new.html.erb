@@ -1,20 +1,46 @@
 <div class="main-body">
-  <%= form_with(url: voters_path, method: :post, class: 'login-register-form') do %>
+  <div class="main-body bg-white shadow-lg rounded-lg mt-5">
+    <%= form_with(url: voters_path, method: :post, class: ' p-1 pl-5 mx-5') do %>
 
-    <div class="mb-3">
-      <label for="emailId" class="form-label">New Voter ID</label>
-      <input
-        name="voter_id"
-        type="text"
-        class="form-control"
-        id="emailId"
-        placeholder="example : UD9FJDU19"
-      >
-    </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Voter Password</label>
-      <input name="voter_password" type="password" class="form-control" id="password">
-    </div>
-    <button type="submit" class="btn btn-primary">Add New Voter</button>
-  <% end %>
+      <div class="text-center text-xl mt-5 text-gray-700 font-black">
+        <p class="py-5">Add New Voter</p>
+      </div>
+
+
+      <div class="mt-2">
+        <label
+          class="pl-2 text-sm font-medium text-gray-600"
+          for="emailId">
+          New Voter ID
+        </label>
+        <input
+          class="block w-full rounded-full"
+          name="voter_id"
+          type="text"
+          class="form-control"
+          id="emailId"
+          placeholder="example : UD9FJDU19"
+        >
+      </div>
+      <div class="mt-2">
+        <label
+          class="pl-2 text-sm font-medium text-gray-600"
+          for="password">
+          Voter Password
+        </label>
+        <input
+          class="block w-full rounded-full"
+          name="voter_password"
+          type="password"
+          id="password"
+          placeholder="***********"
+        >
+      </div>
+      <div class="w-full text-center mt-2 mt-5 py-8">
+        <button
+          class="bg-sky-500 text-white font-medium text-base py-1 px-8 rounded-full hover:bg-sky-900"
+          type="submit">Add New Voter</button>
+      </div>
+    <% end %>
+  </div>
 </div>

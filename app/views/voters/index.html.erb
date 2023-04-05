@@ -1,14 +1,20 @@
 <div class="main-body">
-  <ul class="voters-list">
+  <ul class="">
     <% @voters.each do |voter| %>
-      <li class="voters-list-item">
-        <div class="voters-list-item-name">
-          <h3><%= voter.voter_id %></h3>
+      <li class="flex justify-between bg-gray-100 mt-3 shadow-lg">
+        <div class="pl-5 py-2">
+          <h3 class="text-lg font-medium tracking-wide"><%= voter.voter_id %></h3>
         </div>
-        <div class="voters-list-item-controls">
-          <a href="/voters/<%= voter.id %>/edit" class="btn btn-info">Update</a>
-          <%= form_with url: "/voters/#{voter.id}", method: :delete do %>
-            <button class="btn btn-danger" onclick="this.form.submit()">Delete</button>
+        <div class="flex ">
+          <a
+            href="<%= edit_voter_path(id: voter.id) %>"
+            class="bg-sky-500 hover:bg-sky-900 text-white px-1 pt-2">
+            Update
+          </a>
+          <%= form_with url: "/voters/#{voter.id}", method: :delete, class: 'bg-red-500 hover:bg-red-900 rounded-r-lg' do %>
+            <button class="text-base text-white px-1 pt-2" onclick="this.form.submit()">
+              Delete
+            </button>
           <% end %>
         </div>
       </li>

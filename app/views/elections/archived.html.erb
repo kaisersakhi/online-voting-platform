@@ -1,9 +1,9 @@
 <div class="main-body">
 
   <% elections.each do |election| %>
-    <div class="active-elections-card">
+    <div class="bg-gray-200 rounded-lg shadow-lg flex justify-between mt-4 ">
       <a href="/elections/e/<%= election.custom_url %>">
-        <div class="active-election-card-left">
+        <div class="text-xl pl-4 text-gray-500 py-2 font-black">
           <h3><%= election.name %></h3>
         </div>
       </a>

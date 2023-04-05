@@ -1,29 +1,18 @@
 <div class="main-body">
 
-  <div class="election-heading">
-    <h3><%= election.name %></h3>
-  </div>
+  <%=
+
+    render 'layouts/election-heading', locals:{
+      election_name: election.name
+    }
+
+  %>
 
   <% election.questions.each do |question| %>
-    <div class="saved-questions">
-      <div class="question-with-options">
-        <h3><%= question.question_name %></h3>
-        <p><%= question.question_description %></p>
+    <%=
 
-        <% question.options.each do |option| %>
-          <ul>
-            <li>
-              <p>
-                <%= option.name %>
-                <button class="btn btn-outline-success">
-                   Votes: <%= option.total_vote_count %> / <%= total_votes %>
-                </button>
-              </p>
-            </li>
-          </ul>
-        <% end %>
-      </div>
+      render 'layouts/display-question', question: question, total_votes: total_votes
 
-    </div>
+    %>
   <% end %>
 </div>
