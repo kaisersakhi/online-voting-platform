@@ -119,7 +119,6 @@ class ElectionsController < ApplicationController
 
   # PATCH election/:id/question/:id
   def update_question # update a specific question
-    # Todo: move this action to election_controller
     election = Election.find(params[:e_id])
     question = election.questions.find(params[:q_id])
     question.question_name = params[:question_name]
@@ -128,20 +127,13 @@ class ElectionsController < ApplicationController
     # for options to update correctly, admin must maintain the options order
 
     options = params[:options].to_s.split(",")
-    index = 0
-    question.options.each do |option|
-      option.name = options[index].strip
-      option.save!
-      index += 1
-    end
-
+    question.options.destroy_all
     # admin has added new options
-    while index < options.length
+    options.each do |opt|
       question.options.create!(
-        name: options[index].strip,
+        name: opt.strip,
         total_vote_count: 0
       )
-      index += 1
     end
     redirect_to edit_draft_path(id: election.id)
   end
