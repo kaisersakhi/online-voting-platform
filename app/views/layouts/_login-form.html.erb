@@ -18,9 +18,9 @@
       <input
         class="block text-gray-500 rounded-full focus:outline-none w-full"
         name="email_id"
-        type="<%=  is_admin ? "email" : "text" %>"
+        type="<%= is_admin ? "email" : "text" %>"
         id="emailId"
-        placeholder="<%= is_admin ? "yourmail@example.com" : "Example : UYIU90FII"%>"
+        placeholder="<%= is_admin ? "yourmail@example.com" : "Example : UYIU90FII" %>"
       >
     </div>
     <div>
@@ -33,6 +33,11 @@
         placeholder="********"
       >
     </div>
+    <% if is_admin %>
+      <div class="text-sm text-sky-500  pl-2">
+        <a href="<%= new_admin_path %>">New here?</a>
+      </div>
+    <% end %>
     <div class="w-full text-center">
       <button
         type="submit"

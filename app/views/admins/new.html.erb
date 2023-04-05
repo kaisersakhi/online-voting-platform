@@ -1,30 +1,3 @@
-<!--<div class="main-body">-->
-<!--  <div class="main-body">-->
-    <%#= form_with(url: admin_register_path, method: :post, class: 'login-register-form') do %>
-<!--      <div class="mb-3">-->
-<!--        <label for="firstName" class="form-label">First Name</label>-->
-<!--        <input name="first_name" type="text" class="form-control" id="firstName" aria-describedby="emailHelp">-->
-<!--      </div>-->
-
-<!--      <div class="mb-3">-->
-<!--        <label for="lastName" class="form-label">Last Name</label>-->
-<!--        <input name="last_name" type="text" class="form-control" id="lastName" aria-describedby="emailHelp">-->
-<!--      </div>-->
-
-<!--      <div class="mb-3">-->
-<!--        <label for="emailId" class="form-label">Email address</label>-->
-<!--        <input name="email_id" type="email" class="form-control" id="emailId" aria-describedby="emailHelp">-->
-<!--      </div>-->
-<!--      <div class="mb-3">-->
-<!--        <label for="password" class="form-label">Password</label>-->
-<!--        <input name="password" type="password" class="form-control" id="password">-->
-<!--      </div>-->
-<!--      <button type="submit" class="btn btn-primary">Register</button>-->
-    <%# end %>
-<!--  </div>-->
-<!--</div>-->
-
-
 <div class="main-body">
   <div class="main-body bg-white shadow-lg rounded-lg mt-5">
     <%= form_with(url: admin_register_path, method: :post, class: ' p-1 pl-5 mx-5') do %>
@@ -43,7 +16,6 @@
         </label>
         <input
           class="block w-full rounded-full"
-          name="first_name"
           name="first_name"
           type="text"
           id="emailId"
@@ -77,7 +49,6 @@
           class="block w-full rounded-full"
           name="email_id"
           type="text"
-          class="form-control"
           id="emailId"
           placeholder="youname@example.com"
         >

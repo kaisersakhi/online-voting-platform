@@ -5,13 +5,9 @@ class AdminsController < ApplicationController
     render 'dashboard'
   end
 
-  def new
-    render 'new'
-  end
+  def new; end
 
-  def login
-
-  end
+  def login; end
 
   def create
     first_name = params[:first_name]
@@ -27,7 +23,11 @@ class AdminsController < ApplicationController
     )
 
     if new_admin.save
-      redirect_to admin_login_path
+      session[:current_user] = {
+        'user_id' => new_admin.id,
+        'role' => 'admin'
+      }
+      redirect_to admin_dashboard_path
     else
       flash[:error] = new_admin.errors.full_messages.join(", ")
       redirect_to admin_login_path
