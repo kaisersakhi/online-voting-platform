@@ -1,4 +1,9 @@
 <div class="main-body">
+
+  <%
+    is_admin = locals[:user_role] == 'admin'
+  %>
+
   <%
     form_css_classes = "bg-white rounded-lg shadow-lg py-10 px-8 space-y-6 mt-20"
   %>
@@ -9,13 +14,13 @@
     </p>
     <input type="text" name="role" value="<%= locals[:user_role] %>" hidden>
     <div>
-      <label class="text-gray-500 text-sm px-1" for="emailId">Email address</label>
+      <label class="text-gray-500 text-sm px-1" for="emailId"><%= is_admin ? "Email address" : "Voter ID" %></label>
       <input
         class="block text-gray-500 rounded-full focus:outline-none w-full"
         name="email_id"
-        type="<%= locals[:user_role] == 'admin' ? "email" : "text" %>"
+        type="<%=  is_admin ? "email" : "text" %>"
         id="emailId"
-        placeholder="yourmail@example.com"
+        placeholder="<%= is_admin ? "yourmail@example.com" : "Example : UYIU90FII"%>"
       >
     </div>
     <div>

@@ -21,3 +21,22 @@
     font-size: 1.5rem;
     margin-top: 20px;
 }
+/*####################################*/
+
+.dashboard-items {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(313px, 2fr));
+    grid-gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .dashboard-items {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-items {
+        grid-template-columns: repeat(2, minmax(150px, 2fr));
+    }
+}

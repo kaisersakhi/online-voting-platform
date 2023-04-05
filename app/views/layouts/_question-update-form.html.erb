@@ -1,0 +1,65 @@
+
+<%
+  # this is to get form data if supplied while rendering
+  question_name = locals[:question_name] ? locals[:question_name] : ""
+  question_description = locals[:question_description] ? locals[:question_description] : ""
+  options = locals[:options] ? locals[:options] : ""
+%>
+
+
+<%= form_with url: locals[:submit_path], method: locals[:method], class: "bg-white shadow-lg p-5 py-8 mt-8 rounded-8" do %>
+  <input type="number" name="question_id" value="-1" hidden>
+  <div class="mt-5">
+    <label
+      class="text-base pl-2 text-gray-400 tracking-wide"
+      for="questionName">Question Name</label>
+    <input
+      class="block w-full rounded-full"
+      name="question_name"
+      value="<%= question_name %>"
+      type="text"
+      id="questionName"
+      placeholder="Question?"
+      required>
+  </div>
+
+  <div class="mt-5">
+    <label
+      class="text-base pl-2 text-gray-400 tracking-wide"
+      for="questionDescription"
+    >Description</label>
+    <input
+      class="block w-full rounded-full"
+      name="question_description"
+      value="<%= question_description %>"
+      type="text"
+      id="questionDescription"
+      placeholder="Description"
+      required>
+  </div>
+
+  <div class="mt-5">
+    <label
+      class="text-base pl-2 text-gray-400 tracking-wide"
+      for="option">Options:</label>
+    <input
+      class="block w-full rounded-full"
+      type="text"
+      id="option"
+      name="options"
+      value="<%= options %>"
+      placeholder="Option 1, Option 2, ..., Option n"
+      required>
+
+    <div class="text-sm text-gray-500 font-light pl-3">Separate each option with a comma.</div>
+
+  </div>
+  <div class="w-full text-center">
+    <button
+      class="py-1 px-10 bg-sky-700 text-white rounded-full font-semibold hover:bg-sky-400"
+      type="submit"
+    >
+      <%= locals[:button_text] %>
+    </button>
+  </div>
+<% end %>

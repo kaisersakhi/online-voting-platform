@@ -1,58 +1,57 @@
 <div class="main-body">
 
-  <div class="election-heading">
-    <h3><%= election.name %></h3>
-    <%= form_with(url: "/elections/#{election.id}/launch", method: "PATCH") do %>
-      <button class="btn btn-outline-success" onclick="this.form.submit()">Launch</button>
+  <div class="bg-gray-200 rounded-full shadow-lg flex justify-between mt-4 ">
+    <h3 class="text-xl font-semibold p-3 pl-5"><%= election.name %></h3>
+    <%= form_with(url: launch_election_path(id: election.id), method: "PATCH", class: "bg-green-600 rounded-r-full") do %>
+      <button
+        class="p-3 text-xl text-gray-100 tracking-widest font-black"
+        onclick="this.form.submit()">Launch
+      </button>
     <% end %>
   </div>
 
-  <%= form_with url: add_question_path(id: election.id), method: :post do %>
-    <input type="number" name="question_id" value="-1" hidden>
-    <div class="form-group">
-      <label for="questionName">Question Name</label>
-      <input name="question_name" type="text" class="form-control" id="questionName" placeholder="Question?" required>
-    </div>
-    <div class="form-group">
-      <label for="questionDescription">Description</label>
-      <input name="question_description" class="form-control" id="questionDescription" placeholder="Description" required>
-    </div>
 
-    <div class="form-group">
-      <label for="option">Options:</label>
-      <input type="text" id="option" name="options" class="form-control" placeholder="option 1, option 2, ..., option n" required>
-      <div id="emailHelp" class="form-text">Separate each option with a comma.</div>
-
-    </div>
-    <button style="margin-top: 20px; width: 100%;" type="submit" class="btn btn-primary">Add</button>
-  <% end %>
-
+  <%= render 'layouts/question-update-form', locals:{
+    submit_path: add_question_path(id: election.id),
+    method: :post,
+    button_text: "Add"
+  } %>
 
 
 
   <% election.questions.each do |question| %>
-    <div class="saved-questions">
-      <div class="question-with-options">
-        <h3><%= question.question_name %></h3>
-        <p><%= question.question_description %></p>
+    <div class="bg-gray-200 shadow-lg mt-2 rounded-lg flex justify-between mb-8">
+      <div class="p-8">
+        <h3 class="text-xl text-black font-extrabold"><%= question.question_name %></h3>
+        <p class="text-base text-gray-500 font-light"><%= question.question_description %></p>
 
-        <% question.options.each do |option| %>
-          <ul>
-            <li>
-              <%= option.name %>
-            </li>
-          </ul>
-        <% end %>
+        <div>
+          <% question.options.each do |option| %>
+            <ul class="list-disc pl-8">
+              <li>
+                <%= option.name %>
+              </li>
+            </ul>
+          <% end %>
+        </div>
       </div>
 
-      <div class="question-controls">
-        <form action="/election/<%= election.id %>/question/<%= question.id %>/edit" method="get">
-          <input type="button" class="btn btn-secondary" value="Update" onclick="this.form.submit()">
-        </form>
+      <div class="">
+        <div class="h-full">
 
-        <%= form_with(url: "/election/#{election.id}/question/#{question.id}", method: "DELETE") do %>
-          <input type="button" class="btn btn-danger" value="Delete " onclick="this.form.submit()">
-        <% end %>
+          <div class="inline">
+            <form action="/election/<%= election.id %>/question/<%= question.id %>/edit" method="get" class="h-1/2 text-center bg-sky-500 rounded-tr-lg hover:bg-sky-900">
+              <input class="pt-10 px-1 text-white" type="button" value="Update" onclick="this.form.submit()">
+            </form>
+          </div>
+
+          <div class="inline">
+            <%= form_with(url: "/election/#{election.id}/question/#{question.id}", method: "DELETE", class: "h-1/2 text-center bg-red-500 rounded-br-lg hover:bg-red-800") do %>
+              <input class="pt-10 px-1 text-white" type="button" value="Delete " onclick="this.form.submit()">
+            <% end %>
+          </div>
+
+        </div>
       </div>
     </div>
   <% end %>

@@ -1,16 +1,53 @@
 <div class="main-body">
 
+  <div
+    class="main-body"
+  >
 
-  <form action="/elections" method="post" class="new-election-form">
-    <div class="mb-3">
-      <label for="electionName" class="form-label">Election Name</label>
-      <input name="election_name" type="text" class="form-control" id="electionName" aria-describedby="emailHelp" required>
-    </div>
-    <div class="mb-3">
-      <label for="electionCustomUrl" class="form-label">Custom URL</label>
-      <input name="election_custom_url" type="text" class="form-control" id="electionCustomUrl">
-    </div>
-    <button type="submit" class="btn btn-secondary">Save To Draft</button>
-  </form>
+    <%
+      form_css_classes =
+        "bg-white shadow-lg rounded-20 mt-10 py-20 px-10"
+    %>
 
+    <%= form_with url: elections_path, method: :post, class: form_css_classes do %>
+      <div class="pt-10">
+        <label
+          for="electionName"
+          class="text-sm text-gray-500 font-light pl-1">
+          Election Name
+        </label>
+        <input
+          class="block w-full rounded-full focus:outline-none"
+          name="election_name"
+          type="text"
+          id="electionName"
+          placeholder="My Election"
+          required>
+      </div>
+      <div class="pt-10">
+        <label
+          for="electionCustomUrl"
+          class="text-sm text-gray-500 font-light pl-1"
+        >
+          Custom URL
+        </label>
+        <input
+          class="block w-full rounded-full focus:outline-none"
+          name="election_custom_url"
+          type="text"
+          id="electionCustomUrl"
+          placeholder="my election 123"
+        >
+      </div>
+
+      <div class="w-full text-center">
+        <button
+          type="submit"
+          class="mt-10 bg-sky-600 text-white py-1 px-8 rounded-full hover:bg-sky-900"
+        >Save To Draft
+        </button>
+      </div>
+    <% end %>
+
+  </div>
 </div>

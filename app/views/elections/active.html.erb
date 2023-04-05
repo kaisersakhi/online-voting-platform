@@ -1,7 +1,7 @@
 <div class="main-body">
 
   <% if elections.length == 0 %>
-    <div>
+    <div class="bg-white shadow-lg text-center text-xl text-gray-500 mt-5">
       <p>There are no active elections as of now, check back later!</p>
     </div>
   <% end %>
@@ -9,26 +9,57 @@
   <% user_id = get_current_user&.id %>
 
   <% elections.each do |election| %>
-    <div class="active-elections-card">
+    <div class="bg-gray-200 rounded-lg shadow-lg flex justify-between mt-4 ">
       <% if is_admin
            # wrap with link, if admin %>
         <a href="/elections/<%= election.id %>" style="text-decoration: none">
       <% end %>
-      <div class="active-election-card-left">
-        <h3><%= election.name %></h3>
+      <div class="">
+        <h3 class="text-xl pl-4 text-gray-500 py-2 font-black"><%= election.name %></h3>
       </div>
       <% if is_admin %>
         </a>
       <% end %>
+
       <% if user_id && is_admin %>
-        <%= form_with(url: "/elections/#{election.id}/end", method: "PATCH") do %>
-          <button class="btn btn-danger" onclick="this.form.submit()">End</button>
+
+        <%= form_with(url: end_election_path(id: election.id), method: :patch) do %>
+          <button
+            class="p-3 text-xl text-gray-100 tracking-widest font-black bg-red-500 rounded-r-lg hover:bg-red-200 hover:text-gray-400"
+            onclick="this.form.submit()">
+            End
+          </button>
         <% end %>
+
       <% elsif election.voter_participations.find_by(voter_id: user_id) %>
-        <button class="btn btn-info">Already Voted. Wait for results.</button>
+
+        <button
+          class="p-3 text-base text-gray-100 tracking-widest font-black bg-sky-500 rounded-r-lg"
+        >
+          Already Voted,Wait for results.
+        </button>
+
       <% else %>
-        <a href="/vote/<%= election.id %>" class="btn btn-outline-secondary">Vote!</a>
+
+        <a
+          href="/vote/<%= election.id %>"
+          class="p-3 text-xl text-gray-100 tracking-widest font-black bg-green-500 rounded-r-lg">
+          Vote!
+        </a>
+
       <% end %>
+
     </div>
   <% end %>
 </div>
+
+
+<!--<div class="bg-gray-200 rounded-full shadow-lg flex justify-between mt-4 ">-->
+<!--  <h3 class="text-xl font-semibold p-3 pl-5"><%#= election.name %></h3>-->
+<%#= form_with(url: launch_election_path(id: election.id), method: "PATCH", class: "bg-green-600 rounded-r-full") do %>
+<!--    <button-->
+<!--      class="p-3 text-xl text-gray-100 tracking-widest font-black"-->
+<!--      onclick="this.form.submit()">Launch-->
+<!--    </button>-->
+<%# end %>
+<!--</div>-->
