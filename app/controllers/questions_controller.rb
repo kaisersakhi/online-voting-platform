@@ -1,7 +1,8 @@
 class QuestionsController < ApplicationController
   before_action :ensure_voter_login
 
-  def show # method to render HTML form for voting in an election
+  # method to render HTML form for voting in an election
+  def show
     election = Election.find(params[:e_id])
     questions = election.questions
     user_id = get_current_user&.id
@@ -35,7 +36,8 @@ class QuestionsController < ApplicationController
     VoterParticipation.inc_index_value(election.id, user_id)
   end
 
-  def update_option # method to update vote count
+  # method to update vote count
+  def update_option
     option = Option.find(params[:opt_id])
     option.update_count
     redirect_to vote_path(e_id: params[:e_id])

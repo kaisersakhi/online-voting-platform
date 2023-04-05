@@ -1,16 +1,19 @@
+# frozen_string_literal: true
 class ElectionsController < ApplicationController
 
   before_action :ensure_admin_login, except: [:active_elections, :archived, :get_by_custom_url]
 
-  def index # display a list of elections
-    render plain: Election.all.map { |election| election.to_s }.join("\n")
+  # display a list of elections
+  def index
+    # this route isn't used anywhere, but is accessible
+    render plain: Election.all.map(&:to_s).join("\n")
   end
 
-  def new # return an HTML form for creating new election
+  # return an HTML form for creating new election
+  def new; end
 
-  end
-
-  def create # create a new election
+  # create a new election
+  def create
     election_name = params[:election_name]
     election_custom_url = params[:election_custom_url]
     election_custom_url = if election_custom_url == ""
@@ -22,7 +25,7 @@ class ElectionsController < ApplicationController
     # puts election_custom_url.class, election_name.class
     if election_name.to_s.length == ""
       flash[:error] = "Election must have a name."
-      redirect_to '/elections/new'
+      redirect_to new_election_path
     else
       new_election = Election.new(
         name: election_name,
@@ -91,7 +94,8 @@ class ElectionsController < ApplicationController
     end
   end
 
-  def show # display a specific election
+  # display a specific election
+  def show
     election = Election.find(params[:id])
 
     render 'show', locals: {
@@ -118,7 +122,8 @@ class ElectionsController < ApplicationController
 
 
   # PATCH election/:id/question/:id
-  def update_question # update a specific question
+  # update a specific question
+  def update_question
     election = Election.find(params[:e_id])
     question = election.questions.find(params[:q_id])
     question.question_name = params[:question_name]
@@ -139,7 +144,8 @@ class ElectionsController < ApplicationController
   end
 
 
-  def edit_question # return an HTML form to edit a question
+  # return an HTML form to edit a question
+  def edit_question
     election = Election.find(params[:e_id])
     question = election.questions.find(params[:q_id])
     render 'edit_question', locals: {
@@ -155,15 +161,12 @@ class ElectionsController < ApplicationController
     redirect_to edit_draft_path(id: election.id)
   end
 
-  def edit # returns an HTML form for editing an elections
+  # returns an HTML form for editing an elections
+  def edit; end
 
-  end
+  # update a specific election
+  def update; end
 
-  def update # update a specific election
-
-  end
-
-  def destroy # delete a specific elections
-
-  end
+  # delete a specific elections
+  def destroy; end
 end

@@ -1,25 +1,107 @@
+<!--<div class="main-body">-->
+<!--  <div class="main-body">-->
+    <%#= form_with(url: admin_register_path, method: :post, class: 'login-register-form') do %>
+<!--      <div class="mb-3">-->
+<!--        <label for="firstName" class="form-label">First Name</label>-->
+<!--        <input name="first_name" type="text" class="form-control" id="firstName" aria-describedby="emailHelp">-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <label for="lastName" class="form-label">Last Name</label>-->
+<!--        <input name="last_name" type="text" class="form-control" id="lastName" aria-describedby="emailHelp">-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <label for="emailId" class="form-label">Email address</label>-->
+<!--        <input name="email_id" type="email" class="form-control" id="emailId" aria-describedby="emailHelp">-->
+<!--      </div>-->
+<!--      <div class="mb-3">-->
+<!--        <label for="password" class="form-label">Password</label>-->
+<!--        <input name="password" type="password" class="form-control" id="password">-->
+<!--      </div>-->
+<!--      <button type="submit" class="btn btn-primary">Register</button>-->
+    <%# end %>
+<!--  </div>-->
+<!--</div>-->
+
+
 <div class="main-body">
-  <div class="main-body">
-    <%= form_with(url: admin_register_path, method: :post, class: 'login-register-form') do %>
-      <div class="mb-3">
-        <label for="firstName" class="form-label">First Name</label>
-        <input name="first_name" type="text" class="form-control" id="firstName" aria-describedby="emailHelp">
+  <div class="main-body bg-white shadow-lg rounded-lg mt-5">
+    <%= form_with(url: admin_register_path, method: :post, class: ' p-1 pl-5 mx-5') do %>
+
+      <div class="text-center text-xl mt-5 text-gray-700 font-black">
+        <p class="py-5">New Admin</p>
       </div>
 
-      <div class="mb-3">
-        <label for="lastName" class="form-label">Last Name</label>
-        <input name="last_name" type="text" class="form-control" id="lastName" aria-describedby="emailHelp">
+
+
+      <div class="mt-2">
+        <label
+          class="pl-2 text-sm font-medium text-gray-600"
+          for="emailId">
+          First Name
+        </label>
+        <input
+          class="block w-full rounded-full"
+          name="first_name"
+          name="first_name"
+          type="text"
+          id="emailId"
+          placeholder=""
+        >
       </div>
 
-      <div class="mb-3">
-        <label for="emailId" class="form-label">Email address</label>
-        <input name="email_id" type="email" class="form-control" id="emailId" aria-describedby="emailHelp">
+
+      <div class="mt-2">
+        <label
+          class="pl-2 text-sm font-medium text-gray-600"
+          for="emailId">
+          Last Name
+        </label>
+        <input
+          class="block w-full rounded-full"
+          name="last_name"
+          type="text"
+          id="emailId"
+          placeholder=""
+        >
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input name="password" type="password" class="form-control" id="password">
+
+      <div class="mt-2">
+        <label
+          class="pl-2 text-sm font-medium text-gray-600"
+          for="emailId">
+          Email Address
+        </label>
+        <input
+          class="block w-full rounded-full"
+          name="email_id"
+          type="text"
+          class="form-control"
+          id="emailId"
+          placeholder="youname@example.com"
+        >
       </div>
-      <button type="submit" class="btn btn-primary">Register</button>
+
+      <div class="mt-2">
+        <label
+          class="pl-2 text-sm font-medium text-gray-600"
+          for="password">
+          Voter Password
+        </label>
+        <input
+          class="block w-full rounded-full"
+          name="password"
+          type="password"
+          id="password"
+          placeholder="***********"
+        >
+      </div>
+      <div class="w-full text-center mt-2 mt-5 py-8">
+        <button
+          class="bg-sky-500 text-white font-medium text-base py-1 px-8 rounded-full hover:bg-sky-900"
+          type="submit">Register As Admin</button>
+      </div>
     <% end %>
   </div>
 </div>

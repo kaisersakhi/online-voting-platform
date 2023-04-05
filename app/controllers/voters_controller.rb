@@ -13,8 +13,7 @@ class VotersController < ApplicationController
     @voters = Voter.all
   end
 
-  def new
-  end
+  def new; end
 
   def create
     voter_id = params[:voter_id]

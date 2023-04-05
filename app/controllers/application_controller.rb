@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
 
   helper_method :get_current_user_role, :get_current_user
@@ -38,10 +40,10 @@ class ApplicationController < ActionController::Base
     return unless user_id
 
     user = if current_user_role == 'admin'
-                      Admin.find(user_id)
-                    elsif current_user_role == 'voter'
-                      Voter.find(user_id)
-                    end
+             Admin.find(user_id)
+           elsif current_user_role == 'voter'
+             Voter.find(user_id)
+           end
     {
       user: user,
       role: current_user_role
