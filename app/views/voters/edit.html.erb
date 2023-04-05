@@ -1,11 +1,17 @@
 <div class="main-body">
-  <div class="main-body">
-    <%= form_with(url: "/voters/#{voter.id}", method: :patch, class: 'login-register-form') do %>
+  <div class="main-body bg-white shadow-lg rounded-lg">
+    <%= form_with(url: "/voters/#{voter.id}", method: :patch, class: 'p-4') do %>
       <div class="mb-3">
-        <label for="firstName" class="form-label">First Name</label>
+        <label
+          class="text-sm pl-2 text-gray-600 font-medium"
+          for="firstName"
+        >
+          First Name
+        </label>
         <input
+          class="block w-full rounded-full"
           name="first_name"
-          type="text" class="form-control"
+          type="text"
           id="firstName"
           aria-describedby="emailHelp"
           value="<%= voter.first_name %>"
@@ -13,23 +19,30 @@
       </div>
 
       <div class="mb-3">
-        <label for="lastName" class="form-label">Last Name</label>
+        <label
+          class="text-sm pl-2 text-gray-600 font-medium"
+          for="lastName">
+          Last Name
+        </label>
         <input
+          class="block w-full rounded-full"
           name="last_name"
           type="text"
-          class="form-control"
           id="lastName"
           aria-describedby="emailHelp"
-          value="<%= voter.last_name%>"
+          value="<%= voter.last_name %>"
         >
       </div>
 
       <div class="mb-3">
-        <label for="emailId" class="form-label">Voter ID</label>
+        <label
+          class="text-sm pl-2 text-gray-600 font-medium"
+          for="emailId"
+        >Voter ID</label>
         <input
+          class="block w-full rounded-full"
           name="voter_id"
           type="text"
-          class="form-control"
           id="emailId"
           aria-describedby="emailHelp"
           value="<%= voter.voter_id %>"
@@ -37,10 +50,23 @@
         >
       </div>
       <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input name="password" type="password" class="form-control" id="password">
+        <label
+          class="text-sm pl-2 text-gray-600 font-medium"
+          for="password"
+        >Password</label>
+        <input
+          class="block w-full rounded-full"
+          name="password"
+          type="password"
+          id="password">
       </div>
-      <button type="submit" class="btn btn-primary">Update Voter</button>
+      <div class="w-full text-center py-4">
+        <button
+          class="py-1 px-8 bg-sky-500 text-white font-medium rounded-full"
+          type="submit">
+          Update Voter
+        </button>
+      </div>
     <% end %>
   </div>
 </div>
