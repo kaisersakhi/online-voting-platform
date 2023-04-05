@@ -24,5 +24,13 @@ test:
   database: test_ovp_db
 
 production:
-  <<: *default
-  database: prod_ovp_db
+#  <<: *default
+#  database: prod_ovp_db
+  adapter: postgresql
+  host: localhost
+  user: kaiser
+  url: <%= ENV['DATABASE_URL'] %>
+  database: prod_saas_db
+  password: <%= ENV['RENDER_DEPLOY_DATABASE_PASSWORD'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
