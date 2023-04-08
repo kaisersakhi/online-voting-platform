@@ -1,4 +1,24 @@
-# require 'composite_primary_keys'
+# == Schema Information
+#
+# Table name: voter_participations
+#
+#  id             :bigint           not null, primary key
+#  question_index :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  election_id    :bigint
+#  voter_id       :bigint
+#
+# Indexes
+#
+#  index_voter_participations_on_election_id  (election_id) UNIQUE
+#  index_voter_participations_on_voter_id     (voter_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (election_id => elections.id)
+#  fk_rails_...  (voter_id => voters.id)
+#
 class VoterParticipation < ApplicationRecord
   belongs_to :voter
   belongs_to :election
@@ -17,13 +37,14 @@ class VoterParticipation < ApplicationRecord
   end
 
   def self.get_question_index(election_id, voter_id)
-    participation = all.where("election_id = ? and voter_id = ?", election_id, voter_id)
+    participation = all.where(election_id: election_id, voter_id: voter_id)
+    # all.where()
     participation.first&.question_index
   rescue
     nil
   end
 
   def self.is_present(e_id, v_id)
-    all.where("election_id = ? and voter_id = ?", e_id, v_id).size > 0
+    all.where(election_id: e_id, voter_id: v_id).present?
   end
 end

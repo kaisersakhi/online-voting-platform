@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_02_112255) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_08_132351) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,10 +25,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_112255) do
 
   create_table "elections", force: :cascade do |t|
     t.string "name"
-    t.string "status"
     t.string "custom_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 1
   end
 
   create_table "options", force: :cascade do |t|
@@ -49,13 +49,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_112255) do
     t.index ["election_id"], name: "index_questions_on_election_id"
   end
 
-  create_table "voter_participations", primary_key: ["voter_id", "election_id"], force: :cascade do |t|
-    t.bigint "election_id", null: false
-    t.bigint "voter_id", null: false
+  create_table "voter_participations", force: :cascade do |t|
+    t.bigint "election_id"
+    t.bigint "voter_id"
+    t.integer "question_index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "question_index"
-    t.index ["election_id"], name: "index_voter_participations_on_election_id"
+    t.index ["election_id"], name: "index_voter_participations_on_election_id", unique: true
     t.index ["voter_id"], name: "index_voter_participations_on_voter_id"
   end
 
@@ -70,4 +70,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_112255) do
 
   add_foreign_key "options", "questions"
   add_foreign_key "questions", "elections"
+  add_foreign_key "voter_participations", "elections"
+  add_foreign_key "voter_participations", "voters"
 end

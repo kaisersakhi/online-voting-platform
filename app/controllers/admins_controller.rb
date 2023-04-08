@@ -2,7 +2,6 @@ class AdminsController < ApplicationController
 
   before_action :ensure_admin_login, except: [:create, :new, :login]
   def dashboard
-    render 'dashboard'
   end
 
   def new; end
