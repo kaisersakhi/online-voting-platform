@@ -1,13 +1,18 @@
 class AdminsController < ApplicationController
 
   before_action :ensure_admin_login, except: [:create, :new, :login]
-  def dashboard
-  end
 
+  # GET /admin/dashboard
+  def dashboard; end
+
+
+  # GET /admin/register
   def new; end
 
+  # GET /admin/login
   def login; end
 
+  # POST /admin/register
   def create
     first_name = params[:first_name]
     last_name = params[:last_name]
