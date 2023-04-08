@@ -26,24 +26,33 @@ class VoterParticipation < ApplicationRecord
   validates :voter_id, presence: true
   validates :election_id, presence: true
 
+  # increments `question_index` of specified `election_id` and `voter_id`
   def self.inc_index_value(election_id, voter_id)
     participation = all.find_by(election_id: election_id, voter_id: voter_id)
-    unless participation.nil?
-      current_val = get_question_index(election_id, voter_id) + 1
+    if !participation.nil?
+      current_val = participation.question_index + 1
       # there seems to be an issue, ActiveRecord is not processing composite keys correctly
       # it generate invalid sql query
-      ActiveRecord::Base.connection.execute("UPDATE voter_participations SET question_index = #{current_val} WHERE voter_id = #{voter_id} AND election_id = #{election_id}")
+      # voter_participation = VoterParticipation.where(election_id: election_id, voter_id: voter_id).first
+      participation.question_index = current_val
+      participation.save
+      # ActiveRecord::Base.connection.execute("UPDATE voter_participations SET question_index = #{current_val} WHERE voter_id = #{voter_id} AND election_id = #{election_id}")
     end
   end
 
+  # gets question_index of an entry having specified election_id and voter_id
   def self.get_question_index(election_id, voter_id)
     participation = all.where(election_id: election_id, voter_id: voter_id)
-    # all.where()
-    participation.first&.question_index
-  rescue
-    nil
+    index = participation.first&.question_index
+    # if index is nil, return 0
+    if index.nil?
+      0
+    else
+      index
+    end
   end
 
+  # checks if a entry with specified election_id and voter_id is present
   def self.is_present(e_id, v_id)
     all.where(election_id: e_id, voter_id: v_id).present?
   end
