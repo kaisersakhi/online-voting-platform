@@ -1,5 +1,14 @@
 <div class="main-body">
 
+
+  <%
+    # if user is admin, then link it to view page
+    # if user is admin, then show `End` button
+    # if user is voter and has participated in the election, then show same msg
+    #   else show  `Vote!` button
+
+  %>
+
   <% if @elections.length == 0 %>
     <div class="bg-white shadow-lg text-center text-xl text-gray-500 mt-5">
       <p>There are no active elections as of now, check back later!</p>
@@ -9,7 +18,9 @@
   <% user_id = current_user&.id %>
 
   <% @elections.each do |election| %>
+
     <div class="bg-gray-200 rounded-lg shadow-lg flex justify-between mt-4 ">
+
       <% if @is_admin
            # wrap with link, if admin %>
         <a href="/elections/<%= election.id %>" style="text-decoration: none">
@@ -20,6 +31,7 @@
       <% if @is_admin %>
         </a>
       <% end %>
+
 
       <% if user_id && @is_admin %>
 
@@ -32,10 +44,9 @@
         <% end %>
 
       <% elsif election.voter_participations.find_by(user_id: user_id) %>
-`
+
         <button
-          class="p-3 text-base text-gray-100 tracking-widest font-black bg-sky-500 rounded-r-lg"
-        >
+          class="p-3 text-base text-gray-100 tracking-widest font-black bg-sky-500 rounded-r-lg">
           Already Voted,Wait for results.
         </button>
 
