@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
 
     election = Election.find(params[:e_id])
     questions = election.questions
-    user_id = get_current_user&.id
+    user_id = current_user&.id
 
     current_index = VoterParticipation.get_question_index(election.id, user_id)
     # if it is the last question, then end the process of showing questions
@@ -25,15 +25,15 @@ class QuestionsController < ApplicationController
       }
     end
 
-    # if there exits an entry, then skip
-    if  !VoterParticipation.is_present(election.id, user_id)
+    # if there is no entry, then create new one
+    unless VoterParticipation.is_present(election.id, user_id)
       election.voter_participations.create!(
         election_id: election.id,
         voter_id: user_id,
-        question_index: 1 # essentially, this is current-index
+        question_index: 1
       )
       return # return because, current_index=0 when this executes
-      # so im setting the index in db to 1
+      # so im setting the index in db to 1, saving a read and write to db :)
     end
     VoterParticipation.inc_index_value(election.id, user_id)
   end
