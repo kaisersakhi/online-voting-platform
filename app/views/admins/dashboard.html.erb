@@ -7,55 +7,29 @@
   <%
     bg_image_link = "https://images.unsplash.com/photo-1526289034009-0240ddb68ce3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=310&q=80"
     # bg_image_link = image_path "banner"
+    cards = [
+      { link: new_election_path, text: 'New Election' },
+      { link: drafts_path, text: 'Draft Election' },
+      { link: active_election_path, text: 'Active Election' },
+      { link: archived_election_path, text: 'Archived Elections' },
+      { link: new_voter_path, text: 'Add New Voter' },
+      { link: voters_path, text: 'Manage Voters' }
+    ]
   %>
 
   <div class="dashboard-items mt-2 w-full gap-1">
-    <a href="<%= new_election_path %>">
-      <div
-        class="rounded-lg border-2 border-gray-200 p-4 text-center"
-        style="background-image: url('<%= bg_image_link %>'); height: 200px; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(5px);">
-        <p class="pt-10 mt-10 text-xl text-gray-300 font-black text-xl">New Election</p>
-      </div>
-    </a>
-    <a href="<%= drafts_path %>">
-      <div
-        class="rounded-lg border-2 border-gray-200 p-4 text-center"
-        style="background-image: url('<%= bg_image_link %>'); height: 200px;backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(5px);">
-        <p class="pt-10 mt-10 text-xl text-gray-300 font-black text-xl">Draft Elections</p>
-      </div>
-    </a>
-    <a href="<%= active_election_path %>">
-      <div
-        class="rounded-lg border-2 border-gray-200 p-4 text-center"
-        style="background-image: url('<%= bg_image_link %>'); height: 200px;  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(5px);">
-        <p class="pt-10 mt-10 text-xl text-gray-300 font-black text-xl">Active Elections</p>
-      </div>
-    </a>
-
-    <a href="<%= archived_election_path %>">
-      <div
-        class="rounded-lg border-2 border-gray-200 p-4 text-center"
-        style="background-image: url('<%= bg_image_link %>'); height: 200px;  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(5px);">
-        <p class="pt-10 mt-10 text-xl text-gray-300 font-black text-xl">Archived Elections</p>
-      </div>
-    </a>
-    <a href="<%= new_voter_path %>">
-      <div
-        class="rounded-lg border-2 border-gray-200 p-4 text-center"
-        style="background-image: url('<%= bg_image_link %>'); height: 200px;  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(5px);">
-        <p class="pt-10 mt-10 text-xl text-gray-300 font-black text-xl">Add Voter</p>
-      </div>
-    </a>
-    <a href="<%= voters_path %>">
-      <div
-        class="rounded-lg border-2 border-gray-200 p-4 text-center"
-        style="background-image: url('<%= bg_image_link %>'); height: 200px;  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(5px);">
-        <p class="pt-10 mt-10 text-xl text-gray-300 font-black text-xl">Manage Voters</p>
-      </div>
-    </a>
-
+    <% cards.each do |card| %>
+      <a href="<%= card[:link] %>">
+        <div
+          class="rounded-lg border-2 border-gray-200 p-4 text-center"
+          style="background-image: url('<%= bg_image_link %>'); height: 200px; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(5px);">
+          <p class="pt-10 mt-10 text-xl text-gray-300 font-black text-xl">
+            <%= card[:text] %>
+          </p>
+        </div>
+      </a>
+    <% end %>
   </div>
-
 </div>
 
 
