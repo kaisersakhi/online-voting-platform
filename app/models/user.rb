@@ -24,13 +24,11 @@ class User < ApplicationRecord
   end
 
   def self.find_admin_by_email(email)
-    admin = User.where(is_admin: true, email:)
-    admin&.first
+    User.where(is_admin: true, email:)&.first
   end
 
   def self.find_by_voter_id(voter_id)
-    voter =  all.where(is_admin: false, voter_id:)
-    voter
+    all.where(is_admin: false, voter_id:)&.first
   end
 
   # used to update voter details

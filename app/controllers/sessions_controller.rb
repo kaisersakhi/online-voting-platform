@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
   def destroy
     session[:current_user_id] = nil
     @current_user = nil
-    decide_redirect(current_role)
+    decide_redirect
   end
 
   def decide_redirect(role = nil)

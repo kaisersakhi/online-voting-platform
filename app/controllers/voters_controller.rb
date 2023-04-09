@@ -19,7 +19,7 @@ class VotersController < ApplicationController
     voter_id = params[:voter_id]
     voter_password = params[:voter_password]
     new_voter = User.new(
-      voter_id: voter_id,
+      voter_id:,
       password: voter_password,
       is_admin: false
     )
