@@ -10,7 +10,7 @@ class VotersController < ApplicationController
     # render 'index', locals: {
     #   voters: Voter.all
     # }
-    @voters = Voter.all
+    @voters = User.voters
   end
 
   def new; end
@@ -18,17 +18,18 @@ class VotersController < ApplicationController
   def create
     voter_id = params[:voter_id]
     voter_password = params[:voter_password]
-    new_voter = Voter.new(
-      voter_id: voter_id,
-      password: voter_password
-      )
+    new_voter = User.new(
+      voter_id:,
+      password: voter_password,
+      is_admin: false
+    )
     flash[:error] = new_voter.errors.full_messages.join(', ') unless new_voter.save
     redirect_to admin_dashboard_path
   end
 
   def edit
     render 'edit', locals: {
-      voter: Voter.find(params[:id])
+      voter: User.find_voter(params[:id])
     }
   end
 
@@ -37,14 +38,14 @@ class VotersController < ApplicationController
     last_name = params[:last_name]
     password = params[:password]
 
-    voter = Voter.find(params[:id])
+    voter = User.find_voter(params[:id])
     voter.update_record(first_name, last_name, password)
 
     redirect_to voters_path
   end
 
   def destroy
-    voter = Voter.find(params[:id])
+    voter = User.find_voter(params[:id])
     voter.destroy!
     redirect_to voters_path
   end

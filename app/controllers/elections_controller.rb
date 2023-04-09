@@ -75,7 +75,7 @@ class ElectionsController < ApplicationController
 
     render 'active', locals: {
       elections: Election.active,
-      is_admin: current_user_role == 'admin'
+      is_admin: current_user&.is_admin?
     }
   end
 
@@ -112,7 +112,6 @@ class ElectionsController < ApplicationController
     }
   end
 
-
   # PATCH /election/:id/question
   #  @param :question_name
   #  @param : question_description
@@ -131,7 +130,6 @@ class ElectionsController < ApplicationController
     )
     redirect_to edit_draft_path(id: election.id)
   end
-
 
   # update a specific question <br>
   # PATCH election/:id/question/:id
@@ -154,7 +152,6 @@ class ElectionsController < ApplicationController
     end
     redirect_to edit_draft_path(id: election.id)
   end
-
 
   # return an HTML form to edit a question
   # GET /election/:e_id/question/:q_id/edit

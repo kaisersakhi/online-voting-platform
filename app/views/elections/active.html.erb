@@ -6,7 +6,7 @@
     </div>
   <% end %>
 
-  <% user_id = get_current_user&.id %>
+  <% user_id = current_user&.id %>
 
   <% elections.each do |election| %>
     <div class="bg-gray-200 rounded-lg shadow-lg flex justify-between mt-4 ">
@@ -32,7 +32,7 @@
         <% end %>
 
       <% elsif election.voter_participations.find_by(voter_id: user_id) %>
-
+`
         <button
           class="p-3 text-base text-gray-100 tracking-widest font-black bg-sky-500 rounded-r-lg"
         >
