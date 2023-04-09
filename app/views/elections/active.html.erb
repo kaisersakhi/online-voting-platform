@@ -1,6 +1,6 @@
 <div class="main-body">
 
-  <% if elections.length == 0 %>
+  <% if @elections.length == 0 %>
     <div class="bg-white shadow-lg text-center text-xl text-gray-500 mt-5">
       <p>There are no active elections as of now, check back later!</p>
     </div>
@@ -8,20 +8,20 @@
 
   <% user_id = current_user&.id %>
 
-  <% elections.each do |election| %>
+  <% @elections.each do |election| %>
     <div class="bg-gray-200 rounded-lg shadow-lg flex justify-between mt-4 ">
-      <% if is_admin
+      <% if @is_admin
            # wrap with link, if admin %>
         <a href="/elections/<%= election.id %>" style="text-decoration: none">
       <% end %>
       <div class="">
         <h3 class="text-xl pl-4 text-gray-500 py-2 font-black"><%= election.name %></h3>
       </div>
-      <% if is_admin %>
+      <% if @is_admin %>
         </a>
       <% end %>
 
-      <% if user_id && is_admin %>
+      <% if user_id && @is_admin %>
 
         <%= form_with(url: end_election_path(id: election.id), method: :patch) do %>
           <button
@@ -31,7 +31,7 @@
           </button>
         <% end %>
 
-      <% elsif election.voter_participations.find_by(voter_id: user_id) %>
+      <% elsif election.voter_participations.find_by(user_id: user_id) %>
 `
         <button
           class="p-3 text-base text-gray-100 tracking-widest font-black bg-sky-500 rounded-r-lg"

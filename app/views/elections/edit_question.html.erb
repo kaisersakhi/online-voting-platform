@@ -1,64 +1,16 @@
 <div class="main-body">
 
-
-
   <%=
 
-    render 'layouts/question-update-form', locals:{
-      submit_path: update_question_path(e_id: election_id, q_id: question.id),
-      question_name: question.question_name,
-      question_description: question.question_description,
-      options: question.options.map { |opt| opt.name }.join(", "),
+    render 'layouts/question-update-form', locals: {
+      submit_path: update_question_path(e_id: @election_id, q_id: @question.id),
+      question_name: @question.question_name,
+      question_description: @question.question_description,
+      options: @question.options.map { |opt| opt.name }.join(", "),
       button_text: "Update",
       method: :patch
     }
 
   %>
-
-  <%#=
-<!--    form_with url: , method: :patch do-->
-  %>
-<!--    <input type="number" name="question_id" value="<%#= question.id %>" hidden>-->
-<!--    <div class="form-group">-->
-<!--      <label for="questionName">Question Name</label>-->
-<!--      <input-->
-<!--        name="question_name"-->
-<!--        type="text"-->
-<!--        class="form-control"-->
-<!--        id="questionName"-->
-<!--        placeholder="Question?"-->
-<!--        value="<%#= question.question_name %>"-->
-<!--        required-->
-<!--      >-->
-<!--    </div>-->
-<!--    <div class="form-group">-->
-<!--      <label for="questionDescription">Description</label>-->
-<!--      <input-->
-<!--        name="question_description"-->
-<!--        class="form-control"-->
-<!--        id="questionDescription"-->
-<!--        placeholder="Description"-->
-<!--        value="<%#= question.question_description %>"-->
-<!--        required-->
-<!--      >-->
-<!--    </div>-->
-
-<!--    <div class="form-group">-->
-<!--      <label for="option">Options:</label>-->
-<!--      <input-->
-<!--        type="text"-->
-<!--        id="option"-->
-<!--        name="options"-->
-<!--        class="form-control"-->
-<!--        placeholder="option 1, option 2, ..., option n"-->
-<!--        value="<%#=  %>"-->
-<!--        required-->
-<!--      >-->
-<!--      <div id="emailHelp" class="form-text">Separate each option with a comma. Please maintain order.</div>-->
-
-<!--    </div>-->
-<!--    <button style="margin-top: 20px; width: 100%;" type="submit" class="btn btn-secondary">Update</button>-->
-
-  <%# end %>
 
 </div>

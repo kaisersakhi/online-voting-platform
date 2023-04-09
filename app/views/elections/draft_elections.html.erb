@@ -1,6 +1,6 @@
 <div class="main-body">
 
-  <% draft_elections.each do |election| %>
+  <% @elections.each do |election| %>
     <div class="bg-gray-200 shadow-lg rounded-lg mt-5">
       <a href="<%= edit_draft_path(id: election.id)%>">
         <div class="p-5">

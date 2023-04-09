@@ -3,15 +3,15 @@
   <%=
 
     render 'layouts/election-heading', locals:{
-      election_name: election.name
+      election_name: @election.name
     }
 
   %>
 
-  <% election.questions.each do |question| %>
+  <% @election.questions.each do |question| %>
     <%=
 
-      render 'layouts/display-question', question: question, total_votes: total_votes
+      render 'layouts/display-question', question: question, total_votes: @total_votes
 
     %>
   <% end %>

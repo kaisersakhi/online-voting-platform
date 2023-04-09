@@ -7,16 +7,16 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  election_id    :bigint
-#  voter_id       :bigint
+#  user_id        :bigint
 #
 # Indexes
 #
-#  index_voter_participations_on_election_id_and_voter_id  (election_id,voter_id) UNIQUE
+#  index_voter_participations_on_election_id_and_user_id  (election_id,user_id) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (election_id => elections.id)
-#  fk_rails_...  (voter_id => users.id)
+#  fk_rails_...  (user_id => users.id)
 #
 
 # This model initially had no columns defined. If you add columns to the

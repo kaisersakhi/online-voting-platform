@@ -17,7 +17,7 @@
 class User < ApplicationRecord
 
   has_secure_password
-
+  has_many :voter_participations
   def is_voter?
     !is_admin
   end

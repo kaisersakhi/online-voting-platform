@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_09_101257) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_09_111455) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,15 +53,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_101257) do
 
   create_table "voter_participations", force: :cascade do |t|
     t.bigint "election_id"
-    t.bigint "voter_id"
+    t.bigint "user_id"
     t.integer "question_index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["election_id", "voter_id"], name: "index_voter_participations_on_election_id_and_voter_id", unique: true
+    t.index ["election_id", "user_id"], name: "index_voter_participations_on_election_id_and_user_id", unique: true
   end
 
   add_foreign_key "options", "questions"
   add_foreign_key "questions", "elections"
   add_foreign_key "voter_participations", "elections"
-  add_foreign_key "voter_participations", "users", column: "voter_id"
+  add_foreign_key "voter_participations", "users"
 end

@@ -20,17 +20,15 @@ class QuestionsController < ApplicationController
       redirect_to root_path
     else
       # else keep showing questions
-      render 'show', locals: {
-        election: election,
-        question: questions[current_index]
-      }
+      @election = election
+      @question = questions[current_index]
     end
 
     # if there is no entry, then create new one
     unless VoterParticipation.is_present(election.id, user_id)
-      election.voter_participations.create!(
+      VoterParticipation.create!(
         election_id: election.id,
-        voter_id: user_id,
+        user_id: user_id,
         question_index: 1
       )
       return # return because, current_index=0 when this executes

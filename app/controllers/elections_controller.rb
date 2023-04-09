@@ -37,17 +37,15 @@ class ElectionsController < ApplicationController
 
   # GET /elections/drafts
   def show_draft_elections
-    render 'draft_elections', locals: {
-      draft_elections: Election.draft
-    }
+    @elections = Election.draft
+    render 'draft_elections'
   end
 
   # GET /elections/drafts/edit/:id
   def edit_draft
     election_id = params[:id]
-    render 'edit_draft', locals: {
-      election: Election.find(election_id)
-    }
+    @election = Election.find(election_id)
+    render 'edit_draft'
   end
 
   # PATCH /elections/:id/launch
@@ -72,18 +70,14 @@ class ElectionsController < ApplicationController
 
   # GET /elections/active
   def active_elections
-
-    render 'active', locals: {
-      elections: Election.active,
-      is_admin: current_user&.is_admin?
-    }
+    @elections = Election.active
+    @is_admin = current_user&.is_admin?
+    render 'active'
   end
 
   # GET /elections/archived
   def archived
-    render 'archived', locals: {
-      elections: Election.archived
-    }
+    @elections = Election.archived
   end
 
   # GET /elections/e/:name
@@ -91,10 +85,9 @@ class ElectionsController < ApplicationController
     election = Election.find_by(custom_url: params[:name])
 
     if election
-      render 'show', locals: {
-        election: election,
-        total_votes: election.voter_participations.size
-      }
+      @election = election
+      @total_votes = election.voter_participations.size
+      render 'show'
     else
       flash[:error] = "No elections found!"
       redirect_to root_path
@@ -104,12 +97,9 @@ class ElectionsController < ApplicationController
   # display a specific election
   # GET /elections/:id
   def show
-    election = Election.find(params[:id])
-
-    render 'show', locals: {
-      election: election,
-      total_votes: election.voter_participations.size
-    }
+    @election = Election.find(params[:id])
+    @total_votes = @election.voter_participations.size
+    render 'show'
   end
 
   # PATCH /election/:id/question
@@ -157,11 +147,8 @@ class ElectionsController < ApplicationController
   # GET /election/:e_id/question/:q_id/edit
   def edit_question
     election = Election.find(params[:e_id])
-    question = election.questions.find(params[:q_id])
-    render 'edit_question', locals: {
-      question: question,
-      election_id: election.id
-    }
+    @question = election.questions.find(params[:q_id])
+    @election_id = election.id
   end
 
   # DELETE /election/:e_id/question/:q_id
