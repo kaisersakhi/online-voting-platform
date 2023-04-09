@@ -3,10 +3,9 @@ class SessionsController < ApplicationController
 
   # GET /login
   def new
+    # if user is already logged in
     if current_user
       decide_redirect
-    else
-      render 'new'
     end
   end
 
@@ -22,7 +21,7 @@ class SessionsController < ApplicationController
              User.find_by_voter_id(email) # email has voter_id when role is voter
            end
 
-    session[:current_user_id] = user.id if user&.authenticate(password)
+    session[:current_user_id] if user&.authenticate(password)
     decide_redirect(user_role)
   end
 
@@ -36,11 +35,13 @@ class SessionsController < ApplicationController
   # Not an action, just a helper method
   def decide_redirect(role = nil)
     # user is visiting login page, when logged in
-    user_role = current_user&.is_admin ? 'admin' : 'voter'
-
-
+    user_role = if current_user&.is_admin?
+                  'admin'
+                elsif current_user&.is_voter?
+                  'voter'
+                end
     if user_role
-      flash[:message] = "Successfully logged in!"
+      flash[:message] = 'Successfully logged in!'
       if user_role == 'admin'
         redirect_to admin_dashboard_path
       else
@@ -50,10 +51,10 @@ class SessionsController < ApplicationController
       # when user isn't logged in, or failed to login in based on supplied role
 
       if role == 'admin'
-        flash[:error] = "Email or Password is not correct."
+        flash[:error] = 'Email or Password is not correct.'
         redirect_to admin_login_path
       else
-        flash[:error] = "Voter ID or Password is not correct."
+        flash[:error] = 'Voter ID or Password is not correct.'
         redirect_to login_path
       end
     end

@@ -33,9 +33,10 @@ class VotersController < ApplicationController
 
   # GET /voters/:id/edit
   def edit
-    render 'edit', locals: {
-      voter: User.find_voter(params[:id])
-    }
+    @voter = User.find_voter(params[:id])
+    # render 'edit', locals: {
+    #   voter: User.find_voter(params[:id])
+    # }
   end
 
   # PATCH /voters/:id
