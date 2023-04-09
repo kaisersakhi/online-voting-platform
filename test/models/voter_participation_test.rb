@@ -16,7 +16,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (election_id => elections.id)
-#  fk_rails_...  (voter_id => voters.id)
+#  fk_rails_...  (voter_id => users.id)
 #
 require "test_helper"
 
