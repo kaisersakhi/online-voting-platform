@@ -11,8 +11,7 @@
 #
 # Indexes
 #
-#  index_voter_participations_on_election_id  (election_id) UNIQUE
-#  index_voter_participations_on_voter_id     (voter_id)
+#  index_voter_participations_on_election_id_and_voter_id  (election_id,voter_id) UNIQUE
 #
 # Foreign Keys
 #

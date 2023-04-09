@@ -19,7 +19,7 @@ class AdminsController < ApplicationController
     email = params[:email_id]
     password = params[:password]
 
-    new_admin = Admin.new(
+    new_admin = User.new(
       first_name: first_name,
       last_name: last_name,
       email: email,
