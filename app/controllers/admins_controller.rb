@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AdminsController < ApplicationController
 
   before_action :ensure_admin_login, except: [:create, :new, :login]
@@ -20,17 +21,15 @@ class AdminsController < ApplicationController
     password = params[:password]
 
     new_admin = User.new(
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      password: password
+      first_name:,
+      last_name:,
+      email:,
+      is_admin: true,
+      password:
     )
 
     if new_admin.save
-      session[:current_user] = {
-        'user_id' => new_admin.id,
-        'role' => 'admin'
-      }
+      session[:current_user_id] = new_admin.id
       redirect_to admin_dashboard_path
     else
       flash[:error] = new_admin.errors.full_messages.join(", ")

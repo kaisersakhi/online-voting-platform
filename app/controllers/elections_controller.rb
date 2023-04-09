@@ -75,7 +75,7 @@ class ElectionsController < ApplicationController
 
     render 'active', locals: {
       elections: Election.active,
-      is_admin: current_user_role == 'admin'
+      is_admin: current_user&.is_admin?
     }
   end
 

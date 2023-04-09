@@ -2,7 +2,7 @@
 class SessionsController < ApplicationController
 
   def new
-    if get_current_user
+    if current_user
       decide_redirect
     else
       render 'new'
@@ -15,32 +15,24 @@ class SessionsController < ApplicationController
     user_role = params[:role]
 
     user = if user_role == 'admin'
-             Admin.find_by(email: email)
+             User.find_admin_by_email(email)
            else
-             Voter.find_by(voter_id: email) # email has voter_id when role is voter
+             User.find_by_voter_id(email) # email has voter_id when role is voter
            end
 
-    if user&.authenticate(password)
-      session[:current_user] = {
-        'user_id' => user.id,
-        'role' => user_role
-      }
-      # p session
-    end
-
+    session[:current_user_id] = user.id if user&.authenticate(password)
     decide_redirect(user_role)
   end
 
   def destroy
-    current_role = get_current_user_role
-    session[:current_user] = nil
-    @current_user_info = nil
+    session[:current_user_id] = nil
+    @current_user = nil
     decide_redirect(current_role)
   end
 
   def decide_redirect(role = nil)
     # user is visiting login page, when logged in
-    user_role = get_current_user_role
+    user_role = current_user&.is_admin ? 'admin' : 'voter'
 
 
     if user_role
