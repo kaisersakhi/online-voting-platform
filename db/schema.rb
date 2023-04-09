@@ -12,56 +12,56 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_04_09_111455) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "elections", force: :cascade do |t|
-    t.string "name"
-    t.string "custom_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "status", default: 1
+  create_table 'elections', force: :cascade do |t|
+    t.string 'name'
+    t.string 'custom_url'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.integer 'status', default: 1
   end
 
-  create_table "options", force: :cascade do |t|
-    t.string "name"
-    t.bigint "total_vote_count"
-    t.bigint "question_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["question_id"], name: "index_options_on_question_id"
+  create_table 'options', force: :cascade do |t|
+    t.string 'name'
+    t.bigint 'total_vote_count'
+    t.bigint 'question_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['question_id'], name: 'index_options_on_question_id'
   end
 
-  create_table "questions", force: :cascade do |t|
-    t.string "question_name"
-    t.string "question_description"
-    t.bigint "election_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["election_id"], name: "index_questions_on_election_id"
+  create_table 'questions', force: :cascade do |t|
+    t.string 'question_name'
+    t.string 'question_description'
+    t.bigint 'election_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['election_id'], name: 'index_questions_on_election_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "voter_id"
-    t.boolean "is_admin"
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'users', force: :cascade do |t|
+    t.string 'first_name'
+    t.string 'last_name'
+    t.string 'email'
+    t.string 'voter_id'
+    t.boolean 'is_admin'
+    t.string 'password_digest'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "voter_participations", force: :cascade do |t|
-    t.bigint "election_id"
-    t.bigint "user_id"
-    t.integer "question_index"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["election_id", "user_id"], name: "index_voter_participations_on_election_id_and_user_id", unique: true
+  create_table 'voter_participations', force: :cascade do |t|
+    t.bigint 'election_id'
+    t.bigint 'user_id'
+    t.integer 'question_index'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['election_id', 'user_id'], name: 'index_voter_participations_on_election_id_and_user_id', unique: true
   end
 
-  add_foreign_key "options", "questions"
-  add_foreign_key "questions", "elections"
-  add_foreign_key "voter_participations", "elections"
-  add_foreign_key "voter_participations", "users"
+  add_foreign_key 'options', 'questions'
+  add_foreign_key 'questions', 'elections'
+  add_foreign_key 'voter_participations', 'elections'
+  add_foreign_key 'voter_participations', 'users'
 end

@@ -32,7 +32,7 @@ class AdminsController < ApplicationController
       session[:current_user_id] = new_admin.id
       redirect_to admin_dashboard_path
     else
-      flash[:error] = new_admin.errors.full_messages.join(", ")
+      flash[:error] = new_admin.errors.full_messages.join(', ')
       redirect_to admin_login_path
     end
   end

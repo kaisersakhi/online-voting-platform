@@ -125,12 +125,12 @@ class ElectionsController < ApplicationController
   # PATCH election/:id/question/:id
   def update_question
     election = Election.find(params[:e_id])
-    question = election.questions.find(params[:q_id])
+    question = Question.find(params[:q_id])
     question.question_name = params[:question_name]
     question.question_description = params[:question_description]
     question.save
-    # for options to update correctly, admin must maintain the options order
 
+    # for options to update correctly, admin must maintain the options order
     options = params[:options].to_s.split(",")
     question.options.destroy_all
     # admin has added new options
