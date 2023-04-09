@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class SessionsController < ApplicationController
 
+  # GET /login
   def new
     if current_user
       decide_redirect
@@ -9,6 +10,7 @@ class SessionsController < ApplicationController
     end
   end
 
+  # POST /login
   def create
     email = params[:email_id]
     password = params[:password]
@@ -24,12 +26,14 @@ class SessionsController < ApplicationController
     decide_redirect(user_role)
   end
 
+  # DELETE /logout
   def destroy
     session[:current_user_id] = nil
     @current_user = nil
     decide_redirect
   end
 
+  # Not an action, just a helper method
   def decide_redirect(role = nil)
     # user is visiting login page, when logged in
     user_role = current_user&.is_admin ? 'admin' : 'voter'

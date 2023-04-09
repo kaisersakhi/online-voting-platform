@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
   before_action :ensure_voter_login
 
   # method to render HTML form for voting in an election
+  # GET /vote/:e_id
   def show
 
     election = Election.find(params[:e_id])
@@ -39,6 +40,7 @@ class QuestionsController < ApplicationController
   end
 
   # method to update vote count
+  # PATCH /vote/:e_id
   def update_option
     option = Option.find(params[:opt_id])
     option.update_count

@@ -2,10 +2,12 @@ class VotersController < ApplicationController
 
   before_action :ensure_admin_login
 
+  # GET /voters/:id
   def show
     # election = Election.find(params[:e_id])
   end
 
+  # GET /voters
   def index
     # render 'index', locals: {
     #   voters: Voter.all
@@ -13,8 +15,10 @@ class VotersController < ApplicationController
     @voters = User.voters
   end
 
+  # GET /voters/new
   def new; end
 
+  # POST /voters
   def create
     voter_id = params[:voter_id]
     voter_password = params[:voter_password]
@@ -27,12 +31,14 @@ class VotersController < ApplicationController
     redirect_to admin_dashboard_path
   end
 
+  # GET /voters/:id/edit
   def edit
     render 'edit', locals: {
       voter: User.find_voter(params[:id])
     }
   end
 
+  # PATCH /voters/:id
   def update
     first_name = params[:first_name]
     last_name = params[:last_name]
@@ -44,6 +50,7 @@ class VotersController < ApplicationController
     redirect_to voters_path
   end
 
+  # DELETE /voters/:id
   def destroy
     voter = User.find_voter(params[:id])
     voter.destroy!
