@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-# ruby "3.2.1"
-ruby "3.1.3" # for render
+ruby "3.2.1"
+# ruby "3.1.3" # for render
 
 gem 'dotenv-rails', require: 'dotenv/rails-now', groups: [:development, :test]
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
